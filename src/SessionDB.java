@@ -1,5 +1,6 @@
 package src;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -11,14 +12,36 @@ import java.sql.SQLException;
 public class SessionDB {
 
     private Connection conn;
+    private String dbUrl;
+    private File db;
 
+    public SessionDB() {
+        dbUrl = "jdbc:sqlite:COD_17_sqlite/resources/chinook.db";
+        db=new File(dbUrl.substring(dbUrl.lastIndexOf(":")));
+    }
+
+    public SessionDB(String url) {
+        this.dbUrl = "jdbc:sqlite:"+url;
+        db=new File(url);
+    }
+
+    public SessionDB(File db) {
+        this.db = db;
+        dbUrl="jdbc:sqlite:"+db.getAbsolutePath();
+    }
+    
+    public boolean exists(){
+        return db.exists();
+    }
+    
+    
     public void connect() {
         conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:COD_17_sqlite/resources/chinook.db";
+            
             // create a connection to the database
-            conn = DriverManager.getConnection(url);
+            conn = DriverManager.getConnection(dbUrl);
 
             System.out.println("Connection to SQLite has been established.");
             DatabaseMetaData meta = conn.getMetaData();
