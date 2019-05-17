@@ -4,7 +4,12 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author fsancheztemprano
@@ -28,6 +33,10 @@ public class SessionDB {
     public SessionDB(File db) {
         this.db = db;
         dbUrl="jdbc:sqlite:"+db.getAbsolutePath();
+    }
+
+    public Connection getConn() {
+        return conn;
     }
     
     public boolean exists(){
@@ -54,6 +63,27 @@ public class SessionDB {
         }
     }
 
+    public ArrayList<String> listTables()  {
+        String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
+        ArrayList<String> tableNames = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                tableNames.add(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tableNames.trimToSize();
+        return tableNames;
+    }
+    
+    public void printTables(){
+        ArrayList<String> tablenames = listTables();
+        tablenames.forEach( (name) -> System.out.println(name) );
+    }
+    
     public void close() {
         try {
             if (conn != null) {
