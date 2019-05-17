@@ -24,6 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
     final static String MAINMENUPANEL = "Main Menu Card";
     final static String GENEROSPANEL = "Generos Card";
     final static String PAISESPANEL = "Paises Card";
+    final static String AUTORESPANEL = "Autores Card";
     /**
      * Creates new form NewJFrame
      */

@@ -63,6 +63,22 @@ public class SessionDB {
         }
     }
 
+    public int numOfTables()  {
+        String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
+        int count=0;
+        try {
+            connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                count++;
+            }
+            close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
     public ArrayList<String> listTables()  {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         ArrayList<String> tableNames = new ArrayList<>();

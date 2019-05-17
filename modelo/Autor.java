@@ -15,14 +15,37 @@ import java.util.Date;
 public class Autor {
     private int idAutor;
     private String nombre;
-    private String nacionalidad;
     private Date fechaNacimiento;
+    private int idPais;
 
-    public Autor(int idAutor, String nombre, String nacionalidad, Date fechaNacimiento) {
+    public Autor(int idAutor, String nombre, Date fechaNacimiento,int idPais) {
         this.idAutor = idAutor;
         this.nombre = nombre;
-        this.nacionalidad = nacionalidad;
         this.fechaNacimiento = fechaNacimiento;
+        this.idPais = idPais;
+    }
+
+    public int getIdAutor() {
+        return idAutor;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public int getIdPais() {
+        return idPais;
+    }
+    
+    
+
+    @Override
+    public String toString() {
+        return "Autor{" + "idAutor=" + idAutor + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", idPais=" + idPais + '}';
     }
     
     
