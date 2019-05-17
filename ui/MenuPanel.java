@@ -7,7 +7,9 @@ package ui;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import modelo.BiblioSQL;
 import src.SessionDB;
+import static ui.MainFrame.*;
 
 /**
  *
@@ -18,6 +20,7 @@ public class MenuPanel extends javax.swing.JPanel {
     JPanel cards;
     CardLayout layout;
     SessionDB session;
+    BiblioSQL biblioSQL;
     /**
      * Creates new form MenuPanel
      */
@@ -26,8 +29,14 @@ public class MenuPanel extends javax.swing.JPanel {
 
     public MenuPanel(SessionDB session) {
         this.session = session;
-        this.cards = MainFrame.getCards();
+        biblioSQL = new BiblioSQL(session);
+        
+        cards = MainFrame.getCards();
         layout = (CardLayout)cards.getLayout();
+        
+        cards.add(new GenerosPanel(biblioSQL), GENEROSPANEL);
+        cards.add(new PaisesPanel(biblioSQL), PAISESPANEL);
+        
         initComponents();
         
     }
@@ -56,12 +65,22 @@ public class MenuPanel extends javax.swing.JPanel {
         btnLibros.setText("Libros");
 
         btnGeneros.setText("Generos");
+        btnGeneros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerosActionPerformed(evt);
+            }
+        });
 
         btnEditoriales.setText("Editoriales");
 
         btnAutores.setText("Autores");
 
         btnPaises.setText("Paises");
+        btnPaises.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaisesActionPerformed(evt);
+            }
+        });
 
         btnQuit.setText("Salir");
 
@@ -105,6 +124,16 @@ public class MenuPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerosActionPerformed
+        // TODO add your handling code here:
+        layout.show(cards, GENEROSPANEL);        
+    }//GEN-LAST:event_btnGenerosActionPerformed
+
+    private void btnPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaisesActionPerformed
+        // TODO add your handling code here:
+        layout.show(cards, PAISESPANEL);     
+    }//GEN-LAST:event_btnPaisesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

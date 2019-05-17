@@ -17,11 +17,13 @@ import javax.swing.JPanel;
 public class MainFrame extends javax.swing.JFrame {
 
     private static JPanel cards;
-    private CardLayout cardLayout;
+    private static CardLayout cardLayout;
     
     final static String STARTPANEL = "Start Card";
     final static String NEWDBPANEL = "New DB Card";
     final static String MAINMENUPANEL = "Main Menu Card";
+    final static String GENEROSPANEL = "Generos Card";
+    final static String PAISESPANEL = "Paises Card";
     /**
      * Creates new form NewJFrame
      */
@@ -32,8 +34,11 @@ public class MainFrame extends javax.swing.JFrame {
     public static JPanel getCards() {
         return cards;
     }
-    
 
+    public static CardLayout getCardLayout() {
+        return cardLayout;
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,5 +104,9 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
-    // End of variables declaration                   
+    // End of variables declaration  
+    
+    public static void setCard(String cardName){
+        cardLayout.show(cards, cardName);
+    }
 }
