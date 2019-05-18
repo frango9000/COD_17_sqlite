@@ -15,7 +15,6 @@ import modelo.BiblioSQL;
  */
 public class GenerosPanel extends javax.swing.JPanel {
     BiblioSQL biblioSQL;
-    TreeMap<Integer,String> generos;
     /**
      * Creates new form GenerosPanel
      */
@@ -26,6 +25,7 @@ public class GenerosPanel extends javax.swing.JPanel {
     public GenerosPanel(BiblioSQL biblioSQL) {
         this.biblioSQL = biblioSQL;
         initComponents();
+        refreshTable();
     }
 
     /**
@@ -39,7 +39,7 @@ public class GenerosPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableGeneros = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnLeerGeneros = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
@@ -50,7 +50,7 @@ public class GenerosPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Generos");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableGeneros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -73,11 +73,11 @@ public class GenerosPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(25);
-            jTable2.getColumnModel().getColumn(1).setMinWidth(130);
+        jTableGeneros.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTableGeneros);
+        if (jTableGeneros.getColumnModel().getColumnCount() > 0) {
+            jTableGeneros.getColumnModel().getColumn(0).setMinWidth(25);
+            jTableGeneros.getColumnModel().getColumn(1).setMinWidth(130);
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -155,7 +155,7 @@ public class GenerosPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -165,17 +165,18 @@ public class GenerosPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerGenerosActionPerformed
+        refreshTable();        
+    }//GEN-LAST:event_btnLeerGenerosActionPerformed
+
+    private void refreshTable() {
         // TODO add your handling code here:
-        generos = biblioSQL.getGeneros();
-        
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableGeneros.getModel();
         model.setRowCount(0);
-        generos.forEach((in,st) -> {
+        biblioSQL.queryGeneros().forEach((in,st) -> {
             Object[] row = {in,st};
             model.addRow(row);
-                    });
-        
-    }//GEN-LAST:event_btnLeerGenerosActionPerformed
+        });
+    }
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
@@ -191,6 +192,6 @@ public class GenerosPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableGeneros;
     // End of variables declaration//GEN-END:variables
 }

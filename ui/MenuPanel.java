@@ -87,6 +87,11 @@ public class MenuPanel extends javax.swing.JPanel {
         });
 
         btnQuit.setText("Salir");
+        btnQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -143,6 +148,11 @@ public class MenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         layout.show(cards, AUTORESPANEL);    
     }//GEN-LAST:event_btnAutoresActionPerformed
+
+    private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
+        // TODO add your handling code here:
+        System.exit(1);
+    }//GEN-LAST:event_btnQuitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -15,7 +15,6 @@ import modelo.BiblioSQL;
  */
 public class PaisesPanel extends javax.swing.JPanel {
     BiblioSQL biblioSQL;
-    TreeMap<Integer,String> paises;
     /**
      * Creates new form GenerosPanel
      */
@@ -25,7 +24,8 @@ public class PaisesPanel extends javax.swing.JPanel {
 
     public PaisesPanel(BiblioSQL biblioSQL) {
         this.biblioSQL = biblioSQL;
-        initComponents();
+        initComponents();                                         
+        refreshTable();        
     }
 
     /**
@@ -165,17 +165,18 @@ public class PaisesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerPaisesActionPerformed
+        refreshTable();        
+    }//GEN-LAST:event_btnLeerPaisesActionPerformed
+
+    private void refreshTable() {
         // TODO add your handling code here:
-        paises = biblioSQL.getPaises();
-        
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
-        paises.forEach((in,st) -> {
+        biblioSQL.queryPaises().forEach((in,st) -> {
             Object[] row = {in,st};
             model.addRow(row);
-                    });
-        
-    }//GEN-LAST:event_btnLeerPaisesActionPerformed
+        });
+    }
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:

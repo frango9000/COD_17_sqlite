@@ -26,11 +26,17 @@ import src.SessionDB;
  *
  * @author NarF
  */
-public class BiblioSQL {
+public final class BiblioSQL {
     private final SessionDB session;
+    
+    
+    private TreeMap<Integer,String> paises;
+    private TreeMap<Integer,String> generos;
+    private TreeMap<Integer,Autor> autores;
     
     public BiblioSQL(SessionDB session) {
         this.session = session;
+        this.queryGeneros();
     }
 
     public SessionDB getSession() {
@@ -49,9 +55,13 @@ public class BiblioSQL {
                         "libros\n";
         return model.matches(tablesString.toString());
     }
+
+    public TreeMap<Integer, String> getGeneros() {
+        return generos;
+    }
     
-    public TreeMap<Integer,String> getGeneros(){
-        TreeMap<Integer,String> generos = new TreeMap<>();
+    public TreeMap<Integer,String> queryGeneros(){
+        generos = new TreeMap<>();
         String sql = "SELECT * FROM generos;";
         try {
             session.connect();
@@ -67,8 +77,14 @@ public class BiblioSQL {
         }
         return generos;
     }
-    public TreeMap<Integer,String> getPaises(){
-        TreeMap<Integer,String> paises = new TreeMap<>();
+
+    public TreeMap<Integer, String> getPaises() {
+        return paises;
+    }
+    
+    
+    public TreeMap<Integer,String> queryPaises(){
+        paises = new TreeMap<>();
         String sql = "SELECT * FROM paises;";
         try {
             session.connect();
@@ -84,8 +100,13 @@ public class BiblioSQL {
         }
         return paises;
     }
-        public TreeMap<Integer,Autor> getAutores() {
-        TreeMap<Integer,Autor> autores = new TreeMap<>();
+
+    public TreeMap<Integer, Autor> getAutores() {
+        return autores;
+    }
+    
+    public TreeMap<Integer,Autor> queryAutores() {
+        autores = new TreeMap<>();
         String sql = "SELECT * FROM autores;";
         try {
             session.connect();

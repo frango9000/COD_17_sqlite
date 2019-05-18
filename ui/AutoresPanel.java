@@ -16,7 +16,6 @@ import modelo.BiblioSQL;
  */
 public class AutoresPanel extends javax.swing.JPanel {
     BiblioSQL biblioSQL;
-    TreeMap<Integer,Autor> autores;
     /**
      * Creates new form GenerosPanel
      */
@@ -27,6 +26,7 @@ public class AutoresPanel extends javax.swing.JPanel {
     public AutoresPanel(BiblioSQL biblioSQL) {
         this.biblioSQL = biblioSQL;
         initComponents();
+        refreshTable();        
     }
 
     /**
@@ -40,7 +40,7 @@ public class AutoresPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableAutores = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnLeerGeneros = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
@@ -51,7 +51,7 @@ public class AutoresPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Autores");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAutores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -74,11 +74,12 @@ public class AutoresPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(25);
-            jTable2.getColumnModel().getColumn(1).setMinWidth(130);
+        jTableAutores.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTableAutores);
+        if (jTableAutores.getColumnModel().getColumnCount() > 0) {
+            jTableAutores.getColumnModel().getColumn(0).setMinWidth(25);
+            jTableAutores.getColumnModel().getColumn(0).setMaxWidth(25);
+            jTableAutores.getColumnModel().getColumn(1).setMinWidth(130);
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -167,16 +168,17 @@ public class AutoresPanel extends javax.swing.JPanel {
 
     private void btnLeerGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerGenerosActionPerformed
         // TODO add your handling code here:
-        autores = biblioSQL.getAutores();
-        
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        model.setRowCount(0);
-        autores.forEach((id,autor) -> {
-            Object[] row = {id,autor.getNombre(),autor.getFechaNacimiento().toString(), autor.getIdPais()};
-            model.addRow(row);
-                    });
-        
+        refreshTable();        
     }//GEN-LAST:event_btnLeerGenerosActionPerformed
+
+    private void refreshTable() {
+        DefaultTableModel model = (DefaultTableModel) jTableAutores.getModel();
+        model.setRowCount(0);
+        biblioSQL.queryAutores().forEach((id,autor) -> {
+            Object[] row = {id,autor.getNombre(),autor.getFechaNacimiento().toString(), biblioSQL.getPaises().get(autor.getIdPais())};
+            model.addRow(row);
+        });
+    }
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
@@ -192,6 +194,6 @@ public class AutoresPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableAutores;
     // End of variables declaration//GEN-END:variables
 }
