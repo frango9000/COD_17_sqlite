@@ -36,6 +36,7 @@ public class MenuPanel extends javax.swing.JPanel {
         cards.add(new PaisesPanel(biblioSQL), PAISESPANEL);
         cards.add(new AutoresPanel(biblioSQL), AUTORESPANEL);
         cards.add(new EditorialesPanel(biblioSQL), EDITORIALESPANEL);
+        cards.add(new LibrosPanel(biblioSQL),LIBROSPANEL);
         
         initComponents();
         
@@ -63,6 +64,11 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel2.setText("Biblioteca");
 
         btnLibros.setText("Libros");
+        btnLibros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLibrosActionPerformed(evt);
+            }
+        });
 
         btnGeneros.setText("Generos");
         btnGeneros.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +170,11 @@ public class MenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         layout.show(cards, EDITORIALESPANEL);   
     }//GEN-LAST:event_btnEditorialesActionPerformed
+
+    private void btnLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLibrosActionPerformed
+        // TODO add your handling code here:
+        layout.show(cards, LIBROSPANEL);   
+    }//GEN-LAST:event_btnLibrosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

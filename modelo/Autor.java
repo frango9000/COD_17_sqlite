@@ -17,6 +17,7 @@ public class Autor {
     private String nombre;
     private Date fechaNacimiento;
     private int idPais;
+    private String pais;
 
     public Autor(int idAutor, String nombre, Date fechaNacimiento,int idPais) {
         this.idAutor = idAutor;

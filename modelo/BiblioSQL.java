@@ -34,10 +34,10 @@ public final class BiblioSQL {
     private TreeMap<Integer,String> generos;
     private TreeMap<Integer,String> editoriales;
     private TreeMap<Integer,Autor> autores;
+    private TreeMap<Integer,Libro> libros;
     
     public BiblioSQL(SessionDB session) {
         this.session = session;
-        this.queryGeneros();
     }
 
     public SessionDB getSession() {
@@ -155,6 +155,37 @@ public final class BiblioSQL {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
         } 
         return autores;
+    }
+
+    public TreeMap<Integer, Libro> getLibros() {
+        return libros;
+    }
+    
+    public TreeMap<Integer,Libro> queryLibros() {
+        libros = new TreeMap<>();
+        String sql = "SELECT * FROM libros;";
+        try {
+            session.connect();
+            Statement stmt = session.getConn().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                Date date = null;
+                try{
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                    date = dateFormat.parse(rs.getString(3));
+                }catch (ParseException ex) {
+                    System.out.println("Exception Parsing Date!!!!");
+                    Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Libro libro = new Libro(rs.getInt(1), rs.getString(2), date, rs.getInt(4), rs.getInt(5), rs.getInt(6));
+                libros.put(rs.getInt(1), libro);
+            }
+            libros.forEach((e,f) -> System.out.println(f));
+            session.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return libros;
     }
     
     public void initializeBiblio(){

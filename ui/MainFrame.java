@@ -26,6 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
     final static String PAISESPANEL = "Paises Card";
     final static String AUTORESPANEL = "Autores Card";
     final static String EDITORIALESPANEL = "Editoriales Card";
+    final static String LIBROSPANEL = "Libros Card";
     /**
      * Creates new form NewJFrame
      */
