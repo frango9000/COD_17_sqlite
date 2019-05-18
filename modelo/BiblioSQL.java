@@ -32,6 +32,7 @@ public final class BiblioSQL {
     
     private TreeMap<Integer,String> paises;
     private TreeMap<Integer,String> generos;
+    private TreeMap<Integer,String> editoriales;
     private TreeMap<Integer,Autor> autores;
     
     public BiblioSQL(SessionDB session) {
@@ -99,6 +100,30 @@ public final class BiblioSQL {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return paises;
+    }
+
+
+    public TreeMap<Integer, String> getEditoriales() {
+        return editoriales;
+    }
+    
+    
+    public TreeMap<Integer,String> queryEditoriales(){
+        editoriales = new TreeMap<>();
+        String sql = "SELECT * FROM editoriales;";
+        try {
+            session.connect();
+            Statement stmt = session.getConn().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                editoriales.put(rs.getInt(1), rs.getString(2));
+            }
+            editoriales.forEach((e,f) -> System.out.println(e + "" + f));
+            session.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return editoriales;
     }
 
     public TreeMap<Integer, Autor> getAutores() {

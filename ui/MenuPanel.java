@@ -35,6 +35,7 @@ public class MenuPanel extends javax.swing.JPanel {
         cards.add(new GenerosPanel(biblioSQL), GENEROSPANEL);
         cards.add(new PaisesPanel(biblioSQL), PAISESPANEL);
         cards.add(new AutoresPanel(biblioSQL), AUTORESPANEL);
+        cards.add(new EditorialesPanel(biblioSQL), EDITORIALESPANEL);
         
         initComponents();
         
@@ -71,6 +72,11 @@ public class MenuPanel extends javax.swing.JPanel {
         });
 
         btnEditoriales.setText("Editoriales");
+        btnEditoriales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditorialesActionPerformed(evt);
+            }
+        });
 
         btnAutores.setText("Autores");
         btnAutores.addActionListener(new java.awt.event.ActionListener() {
@@ -153,6 +159,11 @@ public class MenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         System.exit(1);
     }//GEN-LAST:event_btnQuitActionPerformed
+
+    private void btnEditorialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditorialesActionPerformed
+        // TODO add your handling code here:
+        layout.show(cards, EDITORIALESPANEL);   
+    }//GEN-LAST:event_btnEditorialesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
