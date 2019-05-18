@@ -19,7 +19,6 @@ public class MenuPanel extends javax.swing.JPanel {
 
     JPanel cards;
     CardLayout layout;
-    SessionDB session;
     BiblioSQL biblioSQL;
     /**
      * Creates new form MenuPanel
@@ -27,14 +26,8 @@ public class MenuPanel extends javax.swing.JPanel {
     public MenuPanel() {
     }
 
-    public MenuPanel(SessionDB session) {
-        this.session = session;
-        biblioSQL = new BiblioSQL(session);
-        if(session.numOfTables()==0){
-            biblioSQL.initializeBiblio();
-            biblioSQL.insertDemoData();
-        }
-            
+    public MenuPanel(BiblioSQL biblioSQL) {
+        this.biblioSQL = biblioSQL;            
         
         cards = MainFrame.getCards();
         layout = (CardLayout)cards.getLayout();

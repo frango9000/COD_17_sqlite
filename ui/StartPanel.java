@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import modelo.BiblioSQL;
 import src.SessionDB;
 import static ui.MainFrame.MAINMENUPANEL;
 
@@ -118,18 +119,21 @@ public class StartPanel extends javax.swing.JPanel {
         
         if (chooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
             // do something
-            SessionDB db = new SessionDB(chooser.getSelectedFile());
-            db.connect();
-            db.printTables();
-            db.close();
-            
-            JPanel menuCard = new MenuPanel(db);
-            cards.add(menuCard, MAINMENUPANEL);
-            layout.show(cards, MAINMENUPANEL);
+            SessionDB db = new SessionDB(chooser.getSelectedFile());            
+            BiblioSQL biblioSQL = new BiblioSQL(db);
+            if(db.numOfTables()==0){            
+                System.out.println("Initializing DB...");
+                biblioSQL.initializeBiblio();
+                System.out.println("Inserting Demo Data...");
+                biblioSQL.insertDemoData();
+            }
+            if(biblioSQL.isValid()){ 
+                System.out.println("Valid: " + biblioSQL.isValid());
+                JPanel menuCard = new MenuPanel(biblioSQL);
+                cards.add(menuCard, MAINMENUPANEL);
+                layout.show(cards, MAINMENUPANEL);
+            }else System.out.println("Invalid DB");
         }
-        
-        
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

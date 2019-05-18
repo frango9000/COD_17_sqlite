@@ -9,15 +9,13 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -33,6 +31,23 @@ public class BiblioSQL {
     
     public BiblioSQL(SessionDB session) {
         this.session = session;
+    }
+
+    public SessionDB getSession() {
+        return session;
+    }
+    
+    
+    public boolean isValid(){
+        ArrayList<String> tables = session.listTables();
+        StringBuilder tablesString = new StringBuilder();
+        tables.forEach(cnsmr -> tablesString.append(cnsmr).append("\n"));
+        String model = "paises\n" +
+                        "autores\n" +
+                        "editoriales\n" +
+                        "generos\n" +
+                        "libros\n";
+        return model.matches(tablesString.toString());
     }
     
     public TreeMap<Integer,String> getGeneros(){
@@ -96,31 +111,40 @@ public class BiblioSQL {
         return autores;
     }
     
-    public void initializeBiblio(){//TEST!!!!
-        File sql = new File("src/model/Tablas.sql");
+    public void initializeBiblio(){
+        File sql = new File("src/modelo/Tablas.sql");
         StringBuilder sqlcmd = new StringBuilder();
         try(Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))){
             while(scan.hasNext()){
                 sqlcmd.append(scan.nextLine()).append("\n");
             }
+            String multicmd = sqlcmd.toString();
+            String[] cmds = multicmd.split(";");
             session.connect();
-            Statement stmt = session.getConn().createStatement();
-            stmt.execute(sqlcmd.toString());
+            for(String cmd : cmds){
+                Statement stmt = session.getConn().createStatement();
+                stmt.executeUpdate(cmd+";");
+            }
             session.close();
         } catch (FileNotFoundException | SQLException ex) {
+            ex.printStackTrace();
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
-    public void insertDemoData(){//TEST!!!!
-        File sql = new File("src/model/DemoData.sql");
+    public void insertDemoData(){
+        File sql = new File("src/modelo/DemoData.sql");
         StringBuilder sqlcmd = new StringBuilder();
         try(Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))){
             while(scan.hasNext()){
-                sqlcmd.append(scan.nextLine()).append("\n");
+                sqlcmd.append(scan.nextLine());
             }
+            String multicmd = sqlcmd.toString();
+            String[] cmds = multicmd.split(";");
             session.connect();
-            Statement stmt = session.getConn().createStatement();
-            stmt.execute(sqlcmd.toString());
+            for(String cmd : cmds){
+                Statement stmt = session.getConn().createStatement();
+                stmt.executeUpdate(cmd+";");
+            }
             session.close();
         } catch (FileNotFoundException | SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
