@@ -175,7 +175,11 @@ public class AutoresPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTableAutores.getModel();
         model.setRowCount(0);
         biblioSQL.queryAutores().forEach((id,autor) -> {
-            Object[] row = {id,autor.getNombre(),autor.getFechaNacimiento().toString(), biblioSQL.getPaises().get(autor.getIdPais())};
+            Object[] row = {id,
+                            autor.getNombre(),
+                            autor.getFormatedDate(), 
+                            biblioSQL.getPaises().get(autor.getIdPais())
+            };
             model.addRow(row);
         });
     }

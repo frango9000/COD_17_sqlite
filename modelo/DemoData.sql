@@ -45,7 +45,7 @@ INSERT INTO libros VALUES (1, 'Wilhelm Meisters Lehrjahre', '1795-01-01 00:00:00
                           (6, 'The Return of the King', '1955-10-20 00:00:00.000', 1, 1, 4), 
                           (7, 'Don Quijote de la Mancha', '1605-01-01 00:00:00.000', 3, 6, 2), 
                           (8, 'The Name of the Wind', '2007-02-27 00:00:00.000', 6, 1, 3), 
-                          (9, 'The Wise Mans Fear', '2011-03-01 00:00:00.000', 6, 1, 6), 
+                          (9, 'The Wise Mans Fear', '2011-03-01 00:00:00.000', 6, 1, 3), 
                           (10, 'Philosophers Stone', '1997-06-26 00:00:00.000', 2, 8, 1), 
                           (11, 'Chamber of Secrets', '1998-06-02 00:00:00.000', 2, 8, 1), 
                           (12, 'Prisoner of Azkaban', '1999-07-08 00:00:00.000', 2, 8, 1), 

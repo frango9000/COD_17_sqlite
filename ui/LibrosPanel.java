@@ -175,7 +175,13 @@ public class LibrosPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTableLibros.getModel();
         model.setRowCount(0);
         biblioSQL.queryLibros().forEach((id,libro) -> {
-            Object[] row = {id,libro.getTitulo(),libro.getFechaPublicacion().toString(), libro.getIdAutor(), libro.getIdGenero(), libro.getIdEditorial()};
+            Object[] row = {id,
+                            libro.getTitulo(),
+                            libro.getFormatedDate(), 
+                            biblioSQL.queryAutores().get(libro.getIdAutor()).getNombre(), 
+                            biblioSQL.queryGeneros().get(libro.getIdGenero()), 
+                            biblioSQL.queryEditoriales().get(libro.getIdEditorial())
+            };
             model.addRow(row);
         });
     }

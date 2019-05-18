@@ -5,7 +5,9 @@
  */
 package modelo;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -36,6 +38,12 @@ public class Autor {
 
     public Date getFechaNacimiento() {
         return fechaNacimiento;
+    }
+        
+    public String getFormatedDate(){
+       GregorianCalendar cal = new GregorianCalendar();
+       cal.setTime(fechaNacimiento);
+       return String.format("%02d/%02d/%04d", cal.get(Calendar.DATE), cal.get(Calendar.MONTH)+1, cal.get(Calendar.YEAR));
     }
 
     public int getIdPais() {
