@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package src.ui;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
-import modelo.BiblioSQL;
-import src.SessionDB;
-import static ui.MainFrame.*;
+import src.model.BiblioSQL;
+import src.model.SessionDB;
+import static src.ui.MainFrame.*;
 
 /**
  *

@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package src.ui;
 
 import javax.swing.table.DefaultTableModel;
-import modelo.BiblioSQL;
+import src.model.BiblioSQL;
 
 /**
  *
  * @author NarF
  */
-public class LibrosPanel extends javax.swing.JPanel {
+public class AutoresPanel extends javax.swing.JPanel {
 
     BiblioSQL biblioSQL;
 
     /**
      * Creates new form GenerosPanel
      */
-    public LibrosPanel() {
+    public AutoresPanel() {
     }
 
-    public LibrosPanel(BiblioSQL biblioSQL) {
+    public AutoresPanel(BiblioSQL biblioSQL) {
         this.biblioSQL = biblioSQL;
         initComponents();
         refreshTable();
@@ -39,7 +39,7 @@ public class LibrosPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableLibros = new javax.swing.JTable();
+        jTableAutores = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnLeerGeneros = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
@@ -48,21 +48,21 @@ public class LibrosPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Libros");
+        jLabel2.setText("Autores");
 
-        jTableLibros.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAutores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "titulo", "fechaPublicacion", "autor", "genero", "editorial"
+                "id", "nombre", "nacimiento", "pais"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,12 +73,12 @@ public class LibrosPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTableLibros.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTableLibros);
-        if (jTableLibros.getColumnModel().getColumnCount() > 0) {
-            jTableLibros.getColumnModel().getColumn(0).setMinWidth(25);
-            jTableLibros.getColumnModel().getColumn(0).setMaxWidth(25);
-            jTableLibros.getColumnModel().getColumn(1).setResizable(false);
+        jTableAutores.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTableAutores);
+        if (jTableAutores.getColumnModel().getColumnCount() > 0) {
+            jTableAutores.getColumnModel().getColumn(0).setMinWidth(25);
+            jTableAutores.getColumnModel().getColumn(0).setMaxWidth(25);
+            jTableAutores.getColumnModel().getColumn(1).setMinWidth(130);
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -171,15 +171,13 @@ public class LibrosPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLeerGenerosActionPerformed
 
     private void refreshTable() {
-        DefaultTableModel model = (DefaultTableModel) jTableLibros.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableAutores.getModel();
         model.setRowCount(0);
-        biblioSQL.queryLibros().forEach((id, libro) -> {
+        biblioSQL.queryAutores().forEach((id, autor) -> {
             Object[] row = {id,
-                libro.getTitulo(),
-                libro.getFormatedDate(),
-                biblioSQL.getAutores().get(libro.getIdAutor()).getNombre(),
-                biblioSQL.getGeneros().get(libro.getIdGenero()),
-                biblioSQL.getEditoriales().get(libro.getIdEditorial())
+                autor.getNombre(),
+                autor.getFormatedDate(),
+                biblioSQL.getPaises().get(autor.getIdPais())
             };
             model.addRow(row);
         });
@@ -198,6 +196,6 @@ public class LibrosPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableLibros;
+    private javax.swing.JTable jTableAutores;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,8 +7,8 @@ package deprecated;
 
 import java.util.TreeMap;
 import javax.swing.table.DefaultTableModel;
-import modelo.BiblioSQL;
-import ui.MainFrame;
+import src.model.BiblioSQL;
+import src.ui.MainFrame;
 
 /**
  * Replaced by add update deletable editoriales

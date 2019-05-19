@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package src.ui;
 
 import java.awt.CardLayout;
 import java.io.File;
@@ -11,9 +11,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import modelo.BiblioSQL;
-import src.SessionDB;
-import static ui.MainFrame.MAINMENUPANEL;
+import src.model.BiblioSQL;
+import src.model.SessionDB;
+import static src.ui.MainFrame.MAINMENUPANEL;
 
 /**
  *

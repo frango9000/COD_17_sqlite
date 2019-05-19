@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui;
+package src.ui;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,12 +13,12 @@ import javax.swing.JTextField;
  *
  * @author NarF
  */
-public class EditorialPanel extends javax.swing.JPanel {
+public class GeneroPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form EditorialPanel
+     * Creates new form GeneroPanel
      */
-    public EditorialPanel() {
+    public GeneroPanel() {
         initComponents();
     }
 
@@ -36,8 +36,8 @@ public class EditorialPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         idLabel = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
-        editorialLabel = new javax.swing.JLabel();
-        jTextFieldEditorial = new javax.swing.JTextField();
+        generoLabel = new javax.swing.JLabel();
+        jTextFieldGenero = new javax.swing.JTextField();
         jBtnCancel = new javax.swing.JButton();
         jBtnAccept = new javax.swing.JButton();
 
@@ -46,7 +46,7 @@ public class EditorialPanel extends javax.swing.JPanel {
 
         titleLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel.setText("Editorial");
+        titleLabel.setText("Genero");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -55,9 +55,9 @@ public class EditorialPanel extends javax.swing.JPanel {
         jTextFieldID.setEditable(false);
         jTextFieldID.setMinimumSize(new java.awt.Dimension(100, 24));
 
-        editorialLabel.setText("Editorial");
+        generoLabel.setText("Genero");
 
-        jTextFieldEditorial.setMinimumSize(new java.awt.Dimension(100, 24));
+        jTextFieldGenero.setMinimumSize(new java.awt.Dimension(100, 24));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -71,9 +71,9 @@ public class EditorialPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(editorialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(generoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jTextFieldGenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
@@ -85,8 +85,8 @@ public class EditorialPanel extends javax.swing.JPanel {
                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editorialLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(generoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -141,27 +141,27 @@ public class EditorialPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel editorialLabel;
+    private javax.swing.JLabel generoLabel;
     private javax.swing.JLabel idLabel;
     public javax.swing.JButton jBtnAccept;
     public javax.swing.JButton jBtnCancel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextFieldEditorial;
+    private javax.swing.JTextField jTextFieldGenero;
     private javax.swing.JTextField jTextFieldID;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
-    public JButton getBtnEditorialAccept() {
+    public JButton getBtnGeneroAccept() {
         return jBtnAccept;
     }
 
-    public JButton getBtnEditorialCancel() {
+    public JButton getBtnGeneroCancel() {
         return jBtnCancel;
     }
 
-    public JTextField getFieldEditorial() {
-        return jTextFieldEditorial;
+    public JTextField getFieldGenero() {
+        return jTextFieldGenero;
     }
 
     public JTextField getFieldID() {
