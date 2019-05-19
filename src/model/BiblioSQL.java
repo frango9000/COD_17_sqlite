@@ -26,7 +26,11 @@ import java.util.logging.Logger;
  * @author NarF
  */
 public final class BiblioSQL {
-
+    private static BiblioSQL openInstance;
+    public static BiblioSQL getOpenInstance(){
+        return openInstance;
+    }
+    
     private final SessionDB session;
 
     private TreeMap<Integer, String> paises;
@@ -54,6 +58,10 @@ public final class BiblioSQL {
                 + "libros\n";
         return model.matches(tablesString.toString());
     }
+     
+     public void setOpenInstance(){
+         BiblioSQL.openInstance = this;
+     }
 
     public TreeMap<Integer, String> getGeneros() {
         return generos;

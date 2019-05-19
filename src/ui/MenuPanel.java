@@ -8,7 +8,6 @@ package src.ui;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import src.model.BiblioSQL;
-import src.model.SessionDB;
 import static src.ui.MainFrame.*;
 
 /**
@@ -33,7 +32,7 @@ public class MenuPanel extends javax.swing.JPanel {
         cards = MainFrame.getCards();
         layout = (CardLayout) cards.getLayout();
 
-        cards.add(new GenerosPanel(biblioSQL), GENEROSPANEL);
+        cards.add(new GenerosPanel(), GENEROSPANEL);
         cards.add(new PaisesPanel(biblioSQL), PAISESPANEL);
         cards.add(new EditorialesPanel(biblioSQL), EDITORIALESPANEL);
         cards.add(new AutoresPanel(biblioSQL), AUTORESPANEL);

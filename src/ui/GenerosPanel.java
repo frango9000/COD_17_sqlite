@@ -5,7 +5,6 @@
  */
 package src.ui;
 
-import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,16 +16,12 @@ import src.model.BiblioSQL;
  */
 public class GenerosPanel extends javax.swing.JPanel {
 
-    BiblioSQL biblioSQL;
+    private final BiblioSQL biblioSQL = BiblioSQL.getOpenInstance();
 
     /**
      * Creates new form GenerosPanel
      */
     public GenerosPanel() {
-    }
-
-    public GenerosPanel(BiblioSQL biblioSQL) {
-        this.biblioSQL = biblioSQL;
         initComponents();
         refreshTable();
     }
@@ -40,7 +35,6 @@ public class GenerosPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jProgressBar1 = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableGeneros = new javax.swing.JTable();
@@ -246,60 +240,7 @@ public class GenerosPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableGeneros;
     // End of variables declaration//GEN-END:variables
-
-    class GeneroFrame extends JFrame {
-
-        private GeneroPanel panel;
-
-        public GeneroFrame(Integer id) {
-            setMinimumSize(new Dimension(350, 275));
-
-            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-            setTitle("Genero");
-
-            panel = new GeneroPanel();
-
-            if (id != null) {
-                panel.getFieldID().setText(id + "");
-                panel.getFieldGenero().setText(biblioSQL.getGeneros().get(id));
-            }
-
-            panel.getBtnGeneroCancel().addActionListener(e -> this.dispose());
-            panel.getBtnGeneroAccept().addActionListener(e -> {
-                if (panel.getFieldID().getText().length() == 0) {
-                    if (panel.getFieldGenero().getText().trim().length() > 0) {
-                        if (biblioSQL.insertGenero(panel.getFieldGenero().getText().trim()) > 0) {
-                            JOptionPane.showMessageDialog(this, "Insercion realizada", "Genero", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Insercion rechazada", "Genero", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Nombre de genero invalido", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    if (panel.getFieldGenero().getText().trim().length() > 0) {
-                        if (biblioSQL.updateGenero(Integer.parseInt(panel.getFieldID().getText()), panel.getFieldGenero().getText().trim()) > 0) {
-                            JOptionPane.showMessageDialog(this, "Modificacion realizada", "Genero", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Genero", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Nombre de genero invalido", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                this.dispose();
-                refreshTable();
-            });
-            setContentPane(panel);
-
-            pack();
-            this.setLocationRelativeTo(null);
-        }
-
-    }
-
 }
