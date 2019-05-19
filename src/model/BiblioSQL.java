@@ -363,6 +363,54 @@ public final class BiblioSQL {
         }
         return libros;
     }
+    
+    
+
+    public int insertLibro(String titulo) {
+        String sql = "INSERT INTO libros VALUES (NULL,'" + titulo + "');";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+
+    public int updateLibro(int idLibro, String titulo) {
+        String sql = "UPDATE libros SET titulo = '" + titulo + "' WHERE idLibro = '" + idLibro + "';";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+
+    public int deleteLibro(int idLibro) {
+        String sql = "DELETE FROM libros WHERE idLibro = '" + idLibro + "';";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+    
+    
+    
+    
 
     public void initializeBiblio() {
         File sql = new File("src/src/model/Tablas.sql");
