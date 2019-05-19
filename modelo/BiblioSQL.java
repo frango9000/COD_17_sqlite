@@ -141,6 +141,48 @@ public final class BiblioSQL {
         }
         return paises;
     }
+    
+    public int insertPais(String pais){
+        String sql = "INSERT INTO paises VALUES (NULL,'"+pais+"');";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
+        }
+        return rows;
+    }
+    public int updatePais(int idPais, String pais){
+        String sql = "UPDATE paises SET pais = '"+pais+"' WHERE idPais = '"+idPais+"';";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
+        }
+        return rows;        
+    }
+    
+    public int deletePais(int idPais){
+        String sql = "DELETE FROM paises WHERE idPais = '"+idPais+"';";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
+        }
+        return rows;
+    }
+
 
     public TreeMap<Integer, String> getEditoriales() {
         return editoriales;

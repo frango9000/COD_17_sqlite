@@ -60,10 +60,8 @@ public class MainFrame extends javax.swing.JFrame {
         setMinimumSize(new Dimension(600, 350));
 
         JPanel startcard = new StartPanel();
-        JPanel newDBcard = new NewDbPanel();
 
         cards.add(startcard, STARTPANEL);
-        cards.add(newDBcard, NEWDBPANEL);
 
         cardLayout.show(cards, STARTPANEL);
 

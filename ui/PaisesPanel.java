@@ -5,7 +5,9 @@
  */
 package ui;
 
-import java.util.TreeMap;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.BiblioSQL;
 
@@ -18,7 +20,7 @@ public class PaisesPanel extends javax.swing.JPanel {
     BiblioSQL biblioSQL;
 
     /**
-     * Creates new form GenerosPanel
+     * Creates new form PaisesPanel
      */
     public PaisesPanel() {
     }
@@ -38,20 +40,22 @@ public class PaisesPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTablePaises = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnLeerPaises = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Paises");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePaises.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -74,16 +78,17 @@ public class PaisesPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMinWidth(25);
-            jTable2.getColumnModel().getColumn(1).setMinWidth(130);
+        jTablePaises.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTablePaises);
+        if (jTablePaises.getColumnModel().getColumnCount() > 0) {
+            jTablePaises.getColumnModel().getColumn(0).setMinWidth(30);
+            jTablePaises.getColumnModel().getColumn(0).setMaxWidth(30);
+            jTablePaises.getColumnModel().getColumn(1).setMinWidth(130);
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnLeerPaises.setText("Leer");
+        btnLeerPaises.setText("Refrescar");
         btnLeerPaises.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLeerPaisesActionPerformed(evt);
@@ -91,6 +96,11 @@ public class PaisesPanel extends javax.swing.JPanel {
         });
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Editar");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +116,13 @@ public class PaisesPanel extends javax.swing.JPanel {
             }
         });
 
+        btnDelete.setText("Eliminar");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,19 +133,22 @@ public class PaisesPanel extends javax.swing.JPanel {
                     .addComponent(btnLeerPaises, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnAgregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEdit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(btnLeerPaises)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVolver)
                 .addContainerGap())
         );
@@ -142,7 +162,7 @@ public class PaisesPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)))
@@ -163,6 +183,13 @@ public class PaisesPanel extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTablePaises.getSelectedRow();
+        if(selectedRow>-1){
+            int id = (int)jTablePaises.getValueAt(selectedRow, 0);
+            System.out.println(id);
+            JFrame j = new PaisFrame(id);
+            j.setVisible(true);
+        }else JOptionPane.showMessageDialog(this, "Elige un pais a editar", "Paises", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerPaisesActionPerformed
@@ -171,7 +198,7 @@ public class PaisesPanel extends javax.swing.JPanel {
 
     private void refreshTable() {
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTablePaises.getModel();
         model.setRowCount(0);
         biblioSQL.queryPaises().forEach((in, st) -> {
             Object[] row = {in, st};
@@ -184,14 +211,91 @@ public class PaisesPanel extends javax.swing.JPanel {
         MainFrame.setCard(MainFrame.MAINMENUPANEL);
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        JFrame j = new PaisFrame(null);
+        j.setVisible(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        if(jTablePaises.getSelectedRow() > -1){
+            int idPaisSelected = (int)jTablePaises.getValueAt(jTablePaises.getSelectedRow(), 0);
+            String paisSelected = biblioSQL.getPaises().get(idPaisSelected);
+            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el pais: " + paisSelected, "Eliminando Pais", JOptionPane.YES_NO_OPTION);
+            if(i == 0){
+                if(biblioSQL.deletePais(idPaisSelected) > 0){
+                    JOptionPane.showMessageDialog(this, "Pais eliminado: " + paisSelected, "Pais Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Pais NO eliminado: " + paisSelected, "Pais Eliminado", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else JOptionPane.showMessageDialog(this, "Elige un pais a eliminar", "Paises", JOptionPane.ERROR_MESSAGE);
+        refreshTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLeerPaises;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTablePaises;
     // End of variables declaration//GEN-END:variables
+
+    class PaisFrame extends JFrame {
+
+        private PaisPanel panel;
+
+        public PaisFrame(Integer id) {
+            setMinimumSize(new Dimension(350, 275));
+
+            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            setTitle("Pais");
+
+            panel = new PaisPanel();
+            
+            if (id != null) {
+                panel.getFieldIDPais().setText(id + "");
+                panel.getFieldPais().setText(biblioSQL.getPaises().get(id));
+            }
+
+            panel.getBtnPaisCancel().addActionListener(e -> this.dispose());
+            panel.getBtnPaisAccept().addActionListener(e -> {
+                if (panel.getFieldIDPais().getText().length() == 0) {
+                    if (panel.getFieldPais().getText().trim().length() > 0) {
+                        if (biblioSQL.insertPais(panel.getFieldPais().getText().trim()) > 0) {
+                            JOptionPane.showMessageDialog(this, "Insercion realizada", "Pais", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Insercion rechazada", "Pais", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Nombre de pais invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    if (panel.getFieldPais().getText().trim().length() > 0) {
+                        if (biblioSQL.updatePais(Integer.parseInt(panel.getFieldIDPais().getText()),panel.getFieldPais().getText().trim()) > 0) {
+                            JOptionPane.showMessageDialog(this, "Modificacion realizada", "Pais", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Pais", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Nombre de pais invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                    }                    
+                }
+                this.dispose();
+                refreshTable();
+            });
+            setContentPane(panel);
+
+            pack();
+            this.setLocationRelativeTo(null);
+        }
+
+    }
+
 }

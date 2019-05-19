@@ -6,10 +6,8 @@
 package ui;
 
 import java.awt.Dimension;
-import java.util.TreeMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import modelo.BiblioSQL;
 
@@ -83,7 +81,8 @@ public class GenerosPanel extends javax.swing.JPanel {
         jTableGeneros.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableGeneros);
         if (jTableGeneros.getColumnModel().getColumnCount() > 0) {
-            jTableGeneros.getColumnModel().getColumn(0).setMinWidth(25);
+            jTableGeneros.getColumnModel().getColumn(0).setMinWidth(30);
+            jTableGeneros.getColumnModel().getColumn(0).setMaxWidth(30);
             jTableGeneros.getColumnModel().getColumn(1).setMinWidth(130);
         }
 
@@ -261,15 +260,15 @@ public class GenerosPanel extends javax.swing.JPanel {
             panel = new GeneroPanel();
             
             if (id != null) {
-                panel.getjTextFieldID().setText(id + "");
-                panel.getjTextFieldGenero().setText(biblioSQL.getGeneros().get(id));
+                panel.getFieldID().setText(id + "");
+                panel.getFieldGenero().setText(biblioSQL.getGeneros().get(id));
             }
 
-            panel.getjBtnCancel().addActionListener(e -> this.dispose());
-            panel.getjBtnAccept().addActionListener(e -> {
-                if (panel.getjTextFieldID().getText().length() == 0) {
-                    if (panel.getjTextFieldGenero().getText().trim().length() > 0) {
-                        if (biblioSQL.insertGenero(panel.getjTextFieldGenero().getText().trim()) > 0) {
+            panel.getBtnGeneroCancel().addActionListener(e -> this.dispose());
+            panel.getBtnGeneroAccept().addActionListener(e -> {
+                if (panel.getFieldID().getText().length() == 0) {
+                    if (panel.getFieldGenero().getText().trim().length() > 0) {
+                        if (biblioSQL.insertGenero(panel.getFieldGenero().getText().trim()) > 0) {
                             JOptionPane.showMessageDialog(this, "Insercion realizada", "Genero", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(this, "Insercion rechazada", "Genero", JOptionPane.INFORMATION_MESSAGE);
@@ -278,8 +277,8 @@ public class GenerosPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Nombre de genero invalido", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                    if (panel.getjTextFieldGenero().getText().trim().length() > 0) {
-                        if (biblioSQL.updateGenero(Integer.parseInt(panel.getjTextFieldID().getText()),panel.getjTextFieldGenero().getText().trim()) > 0) {
+                    if (panel.getFieldGenero().getText().trim().length() > 0) {
+                        if (biblioSQL.updateGenero(Integer.parseInt(panel.getFieldID().getText()),panel.getFieldGenero().getText().trim()) > 0) {
                             JOptionPane.showMessageDialog(this, "Modificacion realizada", "Genero", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Genero", JOptionPane.INFORMATION_MESSAGE);
