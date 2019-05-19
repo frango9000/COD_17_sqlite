@@ -5,7 +5,6 @@
  */
 package src.ui;
 
-import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,16 +16,11 @@ import src.model.BiblioSQL;
  */
 public class PaisesPanel extends javax.swing.JPanel {
 
-    BiblioSQL biblioSQL;
+    private String nombre;
+    private final BiblioSQL biblioSQL = BiblioSQL.getOpenInstance();
 
-    /**
-     * Creates new form PaisesPanel
-     */
     public PaisesPanel() {
-    }
-
-    public PaisesPanel(BiblioSQL biblioSQL) {
-        this.biblioSQL = biblioSQL;
+        nombre = "Pais";
         initComponents();
         refreshTable();
     }
@@ -40,27 +34,26 @@ public class PaisesPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jLabel2 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTablePaises = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        btnLeerPaises = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Paises");
+        titleLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.setText(nombre);
 
-        jTablePaises.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "Pais"
+                "id", "<User Code>"
             }
         ) {
             Class[] types = new Class [] {
@@ -78,20 +71,21 @@ public class PaisesPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTablePaises.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTablePaises);
-        if (jTablePaises.getColumnModel().getColumnCount() > 0) {
-            jTablePaises.getColumnModel().getColumn(0).setMinWidth(30);
-            jTablePaises.getColumnModel().getColumn(0).setMaxWidth(30);
-            jTablePaises.getColumnModel().getColumn(1).setMinWidth(130);
+        jTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTable);
+        if (jTable.getColumnModel().getColumnCount() > 0) {
+            jTable.getColumnModel().getColumn(0).setMinWidth(30);
+            jTable.getColumnModel().getColumn(0).setMaxWidth(30);
+            jTable.getColumnModel().getColumn(1).setMinWidth(130);
+            jTable.getColumnModel().getColumn(1).setHeaderValue(titleLabel.getText());
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnLeerPaises.setText("Refrescar");
-        btnLeerPaises.addActionListener(new java.awt.event.ActionListener() {
+        btnRefresh.setText("Refrescar");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLeerPaisesActionPerformed(evt);
+                btnRefreshActionPerformed(evt);
             }
         });
 
@@ -130,7 +124,7 @@ public class PaisesPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLeerPaises, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -147,7 +141,7 @@ public class PaisesPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(btnLeerPaises)
+                .addComponent(btnRefresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVolver)
                 .addContainerGap())
@@ -160,7 +154,7 @@ public class PaisesPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -172,7 +166,7 @@ public class PaisesPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -183,24 +177,24 @@ public class PaisesPanel extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        int selectedRow = jTablePaises.getSelectedRow();
+        int selectedRow = jTable.getSelectedRow();
         if (selectedRow > -1) {
-            int id = (int) jTablePaises.getValueAt(selectedRow, 0);
+            int id = (int) jTable.getValueAt(selectedRow, 0);
             System.out.println(id);
             JFrame j = new PaisFrame(id);
             j.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Elige un pais a editar", "Paises", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Elige un "+nombre+" a editar", nombre+"s", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnLeerPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerPaisesActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         refreshTable();
-    }//GEN-LAST:event_btnLeerPaisesActionPerformed
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void refreshTable() {
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) jTablePaises.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTable.getModel();
         model.setRowCount(0);
         biblioSQL.queryPaises().forEach((in, st) -> {
             Object[] row = {in, st};
@@ -221,19 +215,19 @@ public class PaisesPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        if (jTablePaises.getSelectedRow() > -1) {
-            int idPaisSelected = (int) jTablePaises.getValueAt(jTablePaises.getSelectedRow(), 0);
-            String paisSelected = biblioSQL.getPaises().get(idPaisSelected);
-            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el pais: " + paisSelected, "Eliminando Pais", JOptionPane.YES_NO_OPTION);
+        if (jTable.getSelectedRow() > -1) {
+            int idSelected = (int) jTable.getValueAt(jTable.getSelectedRow(), 0);
+            String nameSelected = biblioSQL.getPaises().get(idSelected);
+            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el "+nombre+": " + nameSelected, "Eliminando "+nombre+"", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
-                if (biblioSQL.deletePais(idPaisSelected) > 0) {
-                    JOptionPane.showMessageDialog(this, "Pais eliminado: " + paisSelected, "Pais Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                if (biblioSQL.deletePais(idSelected) > 0) {
+                    JOptionPane.showMessageDialog(this, nombre+" eliminado: " + nameSelected, nombre+" Eliminado", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Pais NO eliminado: " + paisSelected, "Pais Eliminado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, nombre+" NO eliminado: " + nameSelected, nombre+" Eliminado", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Elige un pais a eliminar", "Paises", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Elige un "+nombre+" a eliminar", nombre, JOptionPane.ERROR_MESSAGE);
         }
         refreshTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -242,64 +236,11 @@ public class PaisesPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnLeerPaises;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTablePaises;
+    private javax.swing.JTable jTable;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
-
-    class PaisFrame extends JFrame {
-
-        private PaisPanel panel;
-
-        public PaisFrame(Integer id) {
-            setMinimumSize(new Dimension(350, 275));
-
-            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-            setTitle("Pais");
-
-            panel = new PaisPanel();
-
-            if (id != null) {
-                panel.getFieldIDPais().setText(id + "");
-                panel.getFieldPais().setText(biblioSQL.getPaises().get(id));
-            }
-
-            panel.getBtnPaisCancel().addActionListener(e -> this.dispose());
-            panel.getBtnPaisAccept().addActionListener(e -> {
-                if (panel.getFieldIDPais().getText().length() == 0) {
-                    if (panel.getFieldPais().getText().trim().length() > 0) {
-                        if (biblioSQL.insertPais(panel.getFieldPais().getText().trim()) > 0) {
-                            JOptionPane.showMessageDialog(this, "Insercion realizada", "Pais", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Insercion rechazada", "Pais", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Nombre de pais invalido", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    if (panel.getFieldPais().getText().trim().length() > 0) {
-                        if (biblioSQL.updatePais(Integer.parseInt(panel.getFieldIDPais().getText()), panel.getFieldPais().getText().trim()) > 0) {
-                            JOptionPane.showMessageDialog(this, "Modificacion realizada", "Pais", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Pais", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Nombre de pais invalido", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                this.dispose();
-                refreshTable();
-            });
-            setContentPane(panel);
-
-            pack();
-            this.setLocationRelativeTo(null);
-        }
-
-    }
-
 }
