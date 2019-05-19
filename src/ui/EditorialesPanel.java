@@ -196,8 +196,8 @@ public class EditorialesPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable.getModel();
         model.setRowCount(0);
-        biblioSQL.queryEditoriales().forEach((in, st) -> {
-            Object[] row = {in, st};
+        biblioSQL.queryEditoriales().forEach((id, nombre) -> {
+            Object[] row = {id, nombre};
             model.addRow(row);
         });
     }

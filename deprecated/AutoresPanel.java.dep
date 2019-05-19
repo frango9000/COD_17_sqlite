@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.ui;
+package deprecated;
 
 import javax.swing.table.DefaultTableModel;
 import src.model.BiblioSQL;
@@ -12,17 +12,17 @@ import src.model.BiblioSQL;
  *
  * @author NarF
  */
-public class AutoresPanel extends javax.swing.JPanel {
+public class AutoresPanel2 extends javax.swing.JPanel {
 
     BiblioSQL biblioSQL;
 
     /**
      * Creates new form GenerosPanel
      */
-    public AutoresPanel() {
+    public AutoresPanel2() {
     }
 
-    public AutoresPanel(BiblioSQL biblioSQL) {
+    public AutoresPanel2(BiblioSQL biblioSQL) {
         this.biblioSQL = biblioSQL;
         initComponents();
         refreshTable();
@@ -185,7 +185,7 @@ public class AutoresPanel extends javax.swing.JPanel {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-        MainFrame.setCard(MainFrame.MAINMENUPANEL);
+        //MainFrame.setCard(MainFrame.MAINMENUPANEL);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

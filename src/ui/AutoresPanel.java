@@ -53,14 +53,14 @@ public class AutoresPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "<User Code>"
+                "id", "<User Code>", "fechaNac", "pais"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,7 +76,6 @@ public class AutoresPanel extends javax.swing.JPanel {
         if (jTable.getColumnModel().getColumnCount() > 0) {
             jTable.getColumnModel().getColumn(0).setMinWidth(30);
             jTable.getColumnModel().getColumn(0).setMaxWidth(30);
-            jTable.getColumnModel().getColumn(1).setMinWidth(130);
             jTable.getColumnModel().getColumn(1).setHeaderValue(titleLabel.getText());
         }
 
@@ -196,8 +195,12 @@ public class AutoresPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable.getModel();
         model.setRowCount(0);
-        biblioSQL.queryAutores().forEach((in, st) -> {
-            Object[] row = {in, st};
+        biblioSQL.queryAutores().forEach((id, autor) -> {
+            Object[] row = {id, 
+                autor.getNombre(),
+                autor.getFormatedDate(),
+                biblioSQL.getPaises().get(autor.getIdPais())
+            };
             model.addRow(row);
         });
     }

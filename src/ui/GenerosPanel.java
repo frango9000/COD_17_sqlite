@@ -196,8 +196,8 @@ public class GenerosPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable.getModel();
         model.setRowCount(0);
-        biblioSQL.queryGeneros().forEach((in, st) -> {
-            Object[] row = {in, st};
+        biblioSQL.queryGeneros().forEach((id, name) -> {
+            Object[] row = {id, name};
             model.addRow(row);
         });
     }

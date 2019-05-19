@@ -196,8 +196,8 @@ public class PaisesPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable.getModel();
         model.setRowCount(0);
-        biblioSQL.queryPaises().forEach((in, st) -> {
-            Object[] row = {in, st};
+        biblioSQL.queryPaises().forEach((id, name) -> {
+            Object[] row = {id, name};
             model.addRow(row);
         });
     }
