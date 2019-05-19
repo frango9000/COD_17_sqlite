@@ -14,11 +14,12 @@ import modelo.BiblioSQL;
  * @author NarF
  */
 public class EditorialesPanel extends javax.swing.JPanel {
+
     BiblioSQL biblioSQL;
+
     /**
      * Creates new form GenerosPanel
      */
-    
     public EditorialesPanel() {
     }
 
@@ -165,15 +166,15 @@ public class EditorialesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerGenerosActionPerformed
-        refreshTable();        
+        refreshTable();
     }//GEN-LAST:event_btnLeerGenerosActionPerformed
 
     private void refreshTable() {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTableGeneros.getModel();
         model.setRowCount(0);
-        biblioSQL.queryEditoriales().forEach((in,st) -> {
-            Object[] row = {in,st};
+        biblioSQL.queryEditoriales().forEach((in, st) -> {
+            Object[] row = {in, st};
             model.addRow(row);
         });
     }
@@ -182,7 +183,6 @@ public class EditorialesPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         MainFrame.setCard(MainFrame.MAINMENUPANEL);
     }//GEN-LAST:event_btnVolverActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

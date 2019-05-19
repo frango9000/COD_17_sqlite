@@ -19,5 +19,5 @@ public class NewMain {
         MainFrame ui = new MainFrame();
         ui.setVisible(true);
     }
-    
+
 }

@@ -21,43 +21,42 @@ public class SessionDB {
 
     public SessionDB() {
         dbUrl = "jdbc:sqlite:COD_17_sqlite/resources/biblio.db";
-        db=new File(dbUrl.substring(dbUrl.lastIndexOf(":")));
+        db = new File(dbUrl.substring(dbUrl.lastIndexOf(":")));
     }
 
     public SessionDB(String url) {
-        this.dbUrl = "jdbc:sqlite:"+url;
-        db=new File(url);
+        this.dbUrl = "jdbc:sqlite:" + url;
+        db = new File(url);
     }
 
     public SessionDB(File db) {
         this.db = db;
-        dbUrl="jdbc:sqlite:"+db.getAbsolutePath();
+        dbUrl = "jdbc:sqlite:" + db.getAbsolutePath();
     }
 
     public Connection getConn() {
         return conn;
     }
-    
-    public boolean exists(){
+
+    public boolean exists() {
         return db.exists();
     }
-    
-    
+
     public void connect() {
         conn = null;
         try {
             conn = DriverManager.getConnection(dbUrl);
 
-            System.out.println("Connection to " + conn.getMetaData().getDriverName()+" has been established.");
+            System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }    
-    
+    }
+
     public void close() {
         try {
             if (conn != null) {
-                conn.close();                
+                conn.close();
                 System.out.println("Connection has been terminated.");
             }
         } catch (SQLException ex) {
@@ -65,14 +64,14 @@ public class SessionDB {
         }
     }
 
-    public int numOfTables()  {
+    public int numOfTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
-        int count=0;
+        int count = 0;
         try {
             connect();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 count++;
             }
             close();
@@ -81,14 +80,15 @@ public class SessionDB {
         }
         return count;
     }
-    public ArrayList<String> listTables()  {
+
+    public ArrayList<String> listTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         ArrayList<String> tableNames = new ArrayList<>();
         try {
             connect();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 tableNames.add(rs.getString(1));
             }
             close();
@@ -98,9 +98,9 @@ public class SessionDB {
         tableNames.trimToSize();
         return tableNames;
     }
-    
-    public void printTables(){
+
+    public void printTables() {
         ArrayList<String> tablenames = listTables();
-        tablenames.forEach( (name) -> System.out.println(name) );
+        tablenames.forEach((name) -> System.out.println(name));
     }
 }

@@ -20,6 +20,7 @@ public class MenuPanel extends javax.swing.JPanel {
     JPanel cards;
     CardLayout layout;
     BiblioSQL biblioSQL;
+
     /**
      * Creates new form MenuPanel
      */
@@ -27,19 +28,19 @@ public class MenuPanel extends javax.swing.JPanel {
     }
 
     public MenuPanel(BiblioSQL biblioSQL) {
-        this.biblioSQL = biblioSQL;            
-        
+        this.biblioSQL = biblioSQL;
+
         cards = MainFrame.getCards();
-        layout = (CardLayout)cards.getLayout();
-        
+        layout = (CardLayout) cards.getLayout();
+
         cards.add(new GenerosPanel(biblioSQL), GENEROSPANEL);
         cards.add(new PaisesPanel(biblioSQL), PAISESPANEL);
         cards.add(new EditorialesPanel(biblioSQL), EDITORIALESPANEL);
         cards.add(new AutoresPanel(biblioSQL), AUTORESPANEL);
-        cards.add(new LibrosPanel(biblioSQL),LIBROSPANEL);
-        
+        cards.add(new LibrosPanel(biblioSQL), LIBROSPANEL);
+
         initComponents();
-        
+
     }
 
     /**
@@ -194,7 +195,6 @@ public class MenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         System.exit(1);
     }//GEN-LAST:event_btnQuitActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAutores;

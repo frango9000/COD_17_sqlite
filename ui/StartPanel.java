@@ -23,15 +23,16 @@ public class StartPanel extends javax.swing.JPanel {
 
     JPanel cards;
     CardLayout layout;
+
     /**
      * Creates new form Start
      */
     public StartPanel() {
         this.cards = MainFrame.getCards();
-        layout = (CardLayout)cards.getLayout();
+        layout = (CardLayout) cards.getLayout();
         initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -191,7 +192,7 @@ public class StartPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         //layout.show(cards, MainFrame.NEWDBPANEL);
         File newfile;
-        do{
+        do {
             String nombre = JOptionPane.showInputDialog(this, "Introduce el nombre de la biblioteca", "Nueva Biblioteca", 3);
             File file = new File(jTextFieldBrowse.getText());
 
@@ -201,26 +202,26 @@ public class StartPanel extends javax.swing.JPanel {
                 dir = full.substring(0, full.lastIndexOf("\\"));
             }
             newfile = new File(dir + "\\" + nombre + ".db");
-            
-            if(!newfile.exists())
+
+            if (!newfile.exists()) {
                 break;
-            else
-                JOptionPane.showMessageDialog(this,"File already exists", "Alert", JOptionPane.ERROR_MESSAGE);
-        }while(true);
-        
+            } else {
+                JOptionPane.showMessageDialog(this, "File already exists", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
+        } while (true);
+
         BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(newfile));
         System.out.println("Initializing DB...");
         biblioSQL.initializeBiblio();
         int i = JOptionPane.showConfirmDialog(this, "Insertar demo data?", "Nueva Biblioteca", JOptionPane.YES_NO_OPTION);
-        if (i == 0){        
-                System.out.println("Inserting Demo Data...");
-                biblioSQL.insertDemoData();
+        if (i == 0) {
+            System.out.println("Inserting Demo Data...");
+            biblioSQL.insertDemoData();
         }
         jTextFieldBrowse.setText(newfile.getAbsolutePath());
         setStatusLabels();
-        JOptionPane.showMessageDialog(this,  "Biblioteca creada correctamente","Nueva Biblioteca", JOptionPane.INFORMATION_MESSAGE);
-        
-        
+        JOptionPane.showMessageDialog(this, "Biblioteca creada correctamente", "Nueva Biblioteca", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_jBtnNuevaActionPerformed
 
     private void jBtnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarActionPerformed
@@ -228,15 +229,19 @@ public class StartPanel extends javax.swing.JPanel {
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("D:/NarF/Documents/NetBeansProjects/COD_17_sqlite/src/resources"));
         File loadfile = new File(jTextFieldBrowse.getText());
-        if(loadfile.exists()){
+        if (loadfile.exists()) {
             BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(loadfile));
-            
-            if(biblioSQL.isValid()){ 
+
+            if (biblioSQL.isValid()) {
                 JPanel menuCard = new MenuPanel(biblioSQL);
                 cards.add(menuCard, MAINMENUPANEL);
                 layout.show(cards, MAINMENUPANEL);
-            }else JOptionPane.showMessageDialog(this, "Biblioteca Invalida", "Cargando Biblioteca", JOptionPane.ERROR);
-        }else JOptionPane.showMessageDialog(this, "Archivo inexistente", "Cargando Biblioteca", JOptionPane.ERROR);
+            } else {
+                JOptionPane.showMessageDialog(this, "Biblioteca Invalida", "Cargando Biblioteca", JOptionPane.ERROR);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Archivo inexistente", "Cargando Biblioteca", JOptionPane.ERROR);
+        }
     }//GEN-LAST:event_jBtnCargarActionPerformed
 
     private void jBtnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBrowseActionPerformed
@@ -244,8 +249,8 @@ public class StartPanel extends javax.swing.JPanel {
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("D:/NarF/Documents/NetBeansProjects/COD_17_sqlite/src/resources"));
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        
-        if (chooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {            
+
+        if (chooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
             jTextFieldBrowse.setText(chooser.getSelectedFile().getAbsolutePath());
             setStatusLabels();
         }
@@ -254,23 +259,22 @@ public class StartPanel extends javax.swing.JPanel {
     private void setStatusLabels() {
         File file = new File(jTextFieldBrowse.getText());
         BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(file));
-        
+
         String ok = "<html><b style=\"color:green;\">OK</b></hrml>";
         String err = "<html><b style=\"color:red;\">Invalid</b></hrml>";
-        
-        if(biblioSQL.isValid()){
+
+        if (biblioSQL.isValid()) {
             jLabStatus.setText(ok);
-            jLabNumLibros.setText(biblioSQL.queryLibros().size()+"");
-            jLabNumAutores.setText(biblioSQL.queryAutores().size()+"");
+            jLabNumLibros.setText(biblioSQL.queryLibros().size() + "");
+            jLabNumAutores.setText(biblioSQL.queryAutores().size() + "");
             jLabFileSize.setText(byteSizeFormatter(file.length()) + " bytes");
-        }else{
+        } else {
             jLabStatus.setText(err);
             jLabNumLibros.setText("");
             jLabNumAutores.setText("");
             jLabFileSize.setText(byteSizeFormatter(file.length()) + " bytes");
         }
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnBrowse;
@@ -289,13 +293,12 @@ public class StartPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldBrowse;
     // End of variables declaration//GEN-END:variables
- 
-    
+
     /**
      * Recursive Byte string formatter ex: 10000 = 10.000
      *
      * @param bytes string containing digits to be formated
-     * @return x.xxx.xxx.xxx  style string
+     * @return x.xxx.xxx.xxx style string
      */
     private static String byteSizeFormatter(String bytes) {
         StringBuilder sb = new StringBuilder();

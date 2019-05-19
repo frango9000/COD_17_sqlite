@@ -18,7 +18,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private static JPanel cards;
     private static CardLayout cardLayout;
-    
+
     final static String STARTPANEL = "Start Card";
     final static String NEWDBPANEL = "New DB Card";
     final static String MAINMENUPANEL = "Main Menu Card";
@@ -27,6 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
     final static String AUTORESPANEL = "Autores Card";
     final static String EDITORIALESPANEL = "Editoriales Card";
     final static String LIBROSPANEL = "Libros Card";
+
     /**
      * Creates new form NewJFrame
      */
@@ -41,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static CardLayout getCardLayout() {
         return cardLayout;
     }
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,19 +54,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("BiblioSQL");
-        
+
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
         setMinimumSize(new Dimension(600, 400));
-        
+
         JPanel startcard = new StartPanel();
         JPanel newDBcard = new NewDbPanel();
-        
+
         cards.add(startcard, STARTPANEL);
         cards.add(newDBcard, NEWDBPANEL);
-        
+
         cardLayout.show(cards, STARTPANEL);
-        
+
         this.setContentPane(cards);
 
         pack();
@@ -109,8 +110,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     // End of variables declaration  
-    
-    public static void setCard(String cardName){
+    public static void setCard(String cardName) {
         cardLayout.show(cards, cardName);
     }
 }

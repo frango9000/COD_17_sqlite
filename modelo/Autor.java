@@ -9,19 +9,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-
 /**
  *
  * @author NarF
  */
 public class Autor {
+
     private int idAutor;
     private String nombre;
     private Date fechaNacimiento;
     private int idPais;
     private String pais;
 
-    public Autor(int idAutor, String nombre, Date fechaNacimiento,int idPais) {
+    public Autor(int idAutor, String nombre, Date fechaNacimiento, int idPais) {
         this.idAutor = idAutor;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
@@ -39,24 +39,20 @@ public class Autor {
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
-        
-    public String getFormatedDate(){
-       GregorianCalendar cal = new GregorianCalendar();
-       cal.setTime(fechaNacimiento);
-       return String.format("%02d/%02d/%04d", cal.get(Calendar.DATE), cal.get(Calendar.MONTH)+1, cal.get(Calendar.YEAR));
+
+    public String getFormatedDate() {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(fechaNacimiento);
+        return String.format("%02d/%02d/%04d", cal.get(Calendar.DATE), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
     }
 
     public int getIdPais() {
         return idPais;
     }
-    
-    
 
     @Override
     public String toString() {
         return "Autor{" + "idAutor=" + idAutor + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", idPais=" + idPais + '}';
     }
-    
-    
-    
+
 }
