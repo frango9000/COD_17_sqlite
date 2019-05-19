@@ -178,9 +178,9 @@ public class LibrosPanel extends javax.swing.JPanel {
             Object[] row = {id,
                             libro.getTitulo(),
                             libro.getFormatedDate(), 
-                            biblioSQL.queryAutores().get(libro.getIdAutor()).getNombre(), 
-                            biblioSQL.queryGeneros().get(libro.getIdGenero()), 
-                            biblioSQL.queryEditoriales().get(libro.getIdEditorial())
+                            biblioSQL.getAutores().get(libro.getIdAutor()).getNombre(), 
+                            biblioSQL.getGeneros().get(libro.getIdGenero()), 
+                            biblioSQL.getEditoriales().get(libro.getIdEditorial())
             };
             model.addRow(row);
         });

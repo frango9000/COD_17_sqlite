@@ -37,6 +37,7 @@ public class GenerosPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableGeneros = new javax.swing.JTable();
@@ -191,6 +192,7 @@ public class GenerosPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableGeneros;
     // End of variables declaration//GEN-END:variables

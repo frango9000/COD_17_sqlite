@@ -71,7 +71,8 @@ public final class BiblioSQL {
             while(rs.next()){
                 generos.put(rs.getInt(1), rs.getString(2));
             }
-            generos.forEach((e,f) -> System.out.println(e + "" + f));
+            System.out.println(sql);
+            //generos.forEach((e,f) -> System.out.println(e + "" + f));
             session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,7 +95,8 @@ public final class BiblioSQL {
             while(rs.next()){
                 paises.put(rs.getInt(1), rs.getString(2));
             }
-            paises.forEach((e,f) -> System.out.println(e + "" + f));
+            System.out.println(sql);
+            //paises.forEach((e,f) -> System.out.println(e + "" + f));
             session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,7 +120,8 @@ public final class BiblioSQL {
             while(rs.next()){
                 editoriales.put(rs.getInt(1), rs.getString(2));
             }
-            editoriales.forEach((e,f) -> System.out.println(e + "" + f));
+            System.out.println(sql);
+            //editoriales.forEach((e,f) -> System.out.println(e + "" + f));
             session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,13 +152,15 @@ public final class BiblioSQL {
                 Autor autor = new Autor(rs.getInt(1), rs.getString(2), date, rs.getInt(4));
                 autores.put(rs.getInt(1), autor);
             }
-            autores.forEach((e,f) -> System.out.println(f));
+            System.out.println(sql);
+            //autores.forEach((e,f) -> System.out.println(f));
             session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
         } 
         return autores;
     }
+    
 
     public TreeMap<Integer, Libro> getLibros() {
         return libros;
@@ -180,7 +185,8 @@ public final class BiblioSQL {
                 Libro libro = new Libro(rs.getInt(1), rs.getString(2), date, rs.getInt(4), rs.getInt(5), rs.getInt(6));
                 libros.put(rs.getInt(1), libro);
             }
-            libros.forEach((e,f) -> System.out.println(f));
+            System.out.println(sql);
+            //libros.forEach((e,f) -> System.out.println(f));
             session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);

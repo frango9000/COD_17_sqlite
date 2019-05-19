@@ -52,10 +52,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
+        setTitle("BiblioSQL");
         
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
+        setMinimumSize(new Dimension(600, 400));
         
         JPanel startcard = new StartPanel();
         JPanel newDBcard = new NewDbPanel();
