@@ -46,7 +46,6 @@ public class SessionDB {
         conn = null;
         try {
             conn = DriverManager.getConnection(dbUrl);
-
             System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -67,16 +66,14 @@ public class SessionDB {
     public int numOfTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         int count = 0;
-        try {
             connect();
-            Statement stmt = conn.createStatement();
+        try (Statement stmt = conn.createStatement()){
             ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                count++;
-            }
-            close();
+            count = rs.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            close();            
         }
         return count;
     }
@@ -84,18 +81,17 @@ public class SessionDB {
     public ArrayList<String> listTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         ArrayList<String> tableNames = new ArrayList<>();
-        try {
-            connect();
-            Statement stmt = conn.createStatement();
+        connect();
+        try (Statement stmt = conn.createStatement()){
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 tableNames.add(rs.getString(1));
             }
-            close();
         } catch (SQLException ex) {
             Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            close();            
         }
-        tableNames.trimToSize();
         return tableNames;
     }
 

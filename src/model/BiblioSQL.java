@@ -43,7 +43,7 @@ public final class BiblioSQL {
         return session;
     }
 
-    public boolean isValid() {
+     public boolean isValid() {
         ArrayList<String> tables = session.listTables();
         StringBuilder tablesString = new StringBuilder();
         tables.forEach(cnsmr -> tablesString.append(cnsmr).append("\n"));

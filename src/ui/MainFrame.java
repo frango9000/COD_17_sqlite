@@ -19,14 +19,14 @@ public class MainFrame extends javax.swing.JFrame {
     private static JPanel cards;
     private static CardLayout cardLayout;
 
-    final static String STARTPANEL = "Start Card";
-    final static String NEWDBPANEL = "New DB Card";
-    final static String MAINMENUPANEL = "Main Menu Card";
-    final static String GENEROSPANEL = "Generos Card";
-    final static String PAISESPANEL = "Paises Card";
-    final static String AUTORESPANEL = "Autores Card";
-    final static String EDITORIALESPANEL = "Editoriales Card";
-    final static String LIBROSPANEL = "Libros Card";
+    public final static String STARTPANEL = "Start Card";
+    public final static String NEWDBPANEL = "New DB Card";
+    public final static String MAINMENUPANEL = "Main Menu Card";
+    public final static String GENEROSPANEL = "Generos Card";
+    public final static String PAISESPANEL = "Paises Card";
+    public final static String AUTORESPANEL = "Autores Card";
+    public final static String EDITORIALESPANEL = "Editoriales Card";
+    public final static String LIBROSPANEL = "Libros Card";
 
     /**
      * Creates new form NewJFrame

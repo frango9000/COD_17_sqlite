@@ -249,6 +249,7 @@ public class StartPanel extends javax.swing.JPanel {
                 BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(loadfile));
 
                 if (biblioSQL.isValid()) {
+                    biblioSQL.setOpenInstance();
                     JPanel menuCard = new MenuPanel(biblioSQL);
                     cards.add(menuCard, MAINMENUPANEL);
                     layout.show(cards, MAINMENUPANEL);
