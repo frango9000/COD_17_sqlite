@@ -63,20 +63,31 @@ public final class BiblioSQL {
     public TreeMap<Integer, String> queryGeneros() {
         generos = new TreeMap<>();
         String sql = "SELECT * FROM generos;";
-        try {
-            session.connect();
-            Statement stmt = session.getConn().createStatement();
+        session.connect();
+        try (Statement stmt = session.getConn().createStatement()){
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 generos.put(rs.getInt(1), rs.getString(2));
             }
             System.out.println(sql);
             //generos.forEach((e,f) -> System.out.println(e + "" + f));
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
             session.close();
+        }
+        return generos;
+    }
+    public int insertGenero(String genero){
+        String sql = "INSERT INTO generos  VALUES (NULL,'"+genero+"');";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return generos;
+        return rows;
     }
 
     public TreeMap<Integer, String> getPaises() {
@@ -86,18 +97,18 @@ public final class BiblioSQL {
     public TreeMap<Integer, String> queryPaises() {
         paises = new TreeMap<>();
         String sql = "SELECT * FROM paises;";
-        try {
-            session.connect();
-            Statement stmt = session.getConn().createStatement();
+        session.connect();
+        try (Statement stmt = session.getConn().createStatement()){
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 paises.put(rs.getInt(1), rs.getString(2));
             }
             System.out.println(sql);
             //paises.forEach((e,f) -> System.out.println(e + "" + f));
-            session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
         }
         return paises;
     }
@@ -109,18 +120,18 @@ public final class BiblioSQL {
     public TreeMap<Integer, String> queryEditoriales() {
         editoriales = new TreeMap<>();
         String sql = "SELECT * FROM editoriales;";
-        try {
-            session.connect();
-            Statement stmt = session.getConn().createStatement();
+        session.connect();
+        try (Statement stmt = session.getConn().createStatement()){
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 editoriales.put(rs.getInt(1), rs.getString(2));
             }
             System.out.println(sql);
             //editoriales.forEach((e,f) -> System.out.println(e + "" + f));
-            session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
         }
         return editoriales;
     }
@@ -132,9 +143,8 @@ public final class BiblioSQL {
     public TreeMap<Integer, Autor> queryAutores() {
         autores = new TreeMap<>();
         String sql = "SELECT * FROM autores;";
-        try {
-            session.connect();
-            Statement stmt = session.getConn().createStatement();
+        session.connect();
+        try (Statement stmt = session.getConn().createStatement()){
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Date date = null;
@@ -150,9 +160,10 @@ public final class BiblioSQL {
             }
             System.out.println(sql);
             //autores.forEach((e,f) -> System.out.println(f));
-            session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
         }
         return autores;
     }
@@ -164,9 +175,8 @@ public final class BiblioSQL {
     public TreeMap<Integer, Libro> queryLibros() {
         libros = new TreeMap<>();
         String sql = "SELECT * FROM libros;";
-        try {
             session.connect();
-            Statement stmt = session.getConn().createStatement();
+        try (Statement stmt = session.getConn().createStatement()){
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Date date = null;
@@ -182,9 +192,10 @@ public final class BiblioSQL {
             }
             System.out.println(sql);
             //libros.forEach((e,f) -> System.out.println(f));
-            session.close();
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();            
         }
         return libros;
     }
@@ -205,7 +216,6 @@ public final class BiblioSQL {
             }
             session.close();
         } catch (FileNotFoundException | SQLException ex) {
-            ex.printStackTrace();
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

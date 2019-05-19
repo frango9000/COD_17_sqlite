@@ -5,7 +5,11 @@
  */
 package ui;
 
+import java.awt.Dimension;
 import java.util.TreeMap;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import modelo.BiblioSQL;
 
@@ -92,6 +96,11 @@ public class GenerosPanel extends javax.swing.JPanel {
         });
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Editar");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +173,9 @@ public class GenerosPanel extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        System.out.println(jTableGeneros.getSelectedRow());
+        JFrame j = new GeneroFrame(jTableGeneros.getSelectedRow());
+        j.setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerGenerosActionPerformed
@@ -185,6 +197,12 @@ public class GenerosPanel extends javax.swing.JPanel {
         MainFrame.setCard(MainFrame.MAINMENUPANEL);
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        JFrame j = new GeneroFrame(null);
+        j.setVisible(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEdit;
@@ -196,4 +214,43 @@ public class GenerosPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableGeneros;
     // End of variables declaration//GEN-END:variables
+
+    class GeneroFrame extends JFrame {
+
+        private GeneroPanel panel;
+
+        public GeneroFrame(Integer id) {
+            setMinimumSize(new Dimension(350, 275));
+
+            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            setTitle("Genero");
+
+            if (id != null) {
+                panel.getjTextFieldID().setText(id + "");
+                panel.getjTextFieldGenero().setText(biblioSQL.getGeneros().get(id));
+            }
+
+            panel = new GeneroPanel();
+            panel.getjBtnCancel().addActionListener(e -> this.dispose());
+            panel.getjBtnAccept().addActionListener(e -> {
+                if (panel.getjTextFieldID().getText().length() == 0) {
+                    if (panel.getjTextFieldGenero().getText().trim().length() > 0) {
+                        if (biblioSQL.insertGenero(panel.getjTextFieldGenero().getText().trim()) > 0) {
+                            JOptionPane.showMessageDialog(this, "Insercion realizada", "Genero", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Insercion rechazada", "Genero", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Nombre de genero invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
+            setContentPane(panel);
+
+            pack();
+            this.setLocationRelativeTo(null);
+        }
+
+    }
+
 }

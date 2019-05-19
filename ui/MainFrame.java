@@ -57,7 +57,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
-        setMinimumSize(new Dimension(600, 400));
+        setMinimumSize(new Dimension(600, 350));
 
         JPanel startcard = new StartPanel();
         JPanel newDBcard = new NewDbPanel();

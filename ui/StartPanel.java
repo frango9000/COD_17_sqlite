@@ -137,9 +137,9 @@ public class StartPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnBrowse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -237,10 +237,10 @@ public class StartPanel extends javax.swing.JPanel {
                 cards.add(menuCard, MAINMENUPANEL);
                 layout.show(cards, MAINMENUPANEL);
             } else {
-                JOptionPane.showMessageDialog(this, "Biblioteca Invalida", "Cargando Biblioteca", JOptionPane.ERROR);
+                JOptionPane.showMessageDialog(this, "Biblioteca Invalida", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Archivo inexistente", "Cargando Biblioteca", JOptionPane.ERROR);
+            JOptionPane.showMessageDialog(this, "Archivo inexistente", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnCargarActionPerformed
 
