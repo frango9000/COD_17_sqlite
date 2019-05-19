@@ -290,6 +290,48 @@ public final class BiblioSQL {
         return autores;
     }
 
+    public int insertAutor(String autor) {
+        String sql = "INSERT INTO autores VALUES (NULL,'" + autor + "');";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+
+    public int updateAutor(int idAutor, String autor) {
+        String sql = "UPDATE autores SET nombre = '" + autor + "' WHERE idAutor = '" + idAutor + "';";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+
+    public int deleteAutor(int idAutor) {
+        String sql = "DELETE FROM autores WHERE idAutor = '" + idAutor + "';";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+    
     public TreeMap<Integer, Libro> getLibros() {
         return libros;
     }
@@ -323,7 +365,7 @@ public final class BiblioSQL {
     }
 
     public void initializeBiblio() {
-        File sql = new File("src/modelo/Tablas.sql");
+        File sql = new File("src/src/model/Tablas.sql");
         StringBuilder sqlcmd = new StringBuilder();
         try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))) {
             while (scan.hasNext()) {
@@ -333,17 +375,19 @@ public final class BiblioSQL {
             String[] cmds = multicmd.split(";");
             session.connect();
             for (String cmd : cmds) {
-                Statement stmt = session.getConn().createStatement();
-                stmt.executeUpdate(cmd + ";");
+                try (Statement stmt = session.getConn().createStatement()) {
+                    stmt.executeUpdate(cmd + ";");
+                }
             }
-            session.close();
         } catch (FileNotFoundException | SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();            
         }
     }
 
     public void insertDemoData() {
-        File sql = new File("src/modelo/DemoData.sql");
+        File sql = new File("src/src/model/DemoData.sql");
         StringBuilder sqlcmd = new StringBuilder();
         try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))) {
             while (scan.hasNext()) {
@@ -353,12 +397,14 @@ public final class BiblioSQL {
             String[] cmds = multicmd.split(";");
             session.connect();
             for (String cmd : cmds) {
-                Statement stmt = session.getConn().createStatement();
-                stmt.executeUpdate(cmd + ";");
+                try (Statement stmt = session.getConn().createStatement()) {
+                    stmt.executeUpdate(cmd + ";");
+                }
             }
-            session.close();
         } catch (FileNotFoundException | SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();            
         }
     }
 

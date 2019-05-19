@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS paises (
 
 CREATE TABLE IF NOT EXISTS autores (
                         idAutor integer PRIMARY KEY, 
-                        nombreAutor text NOT NULL UNIQUE, 
+                        nombre text NOT NULL UNIQUE, 
                         fechaNacimiento text, 
                         idPais integer NOT NULL,
                                 FOREIGN KEY (idPais) REFERENCES paises (idPais)

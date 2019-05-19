@@ -35,7 +35,7 @@ public class MenuPanel extends javax.swing.JPanel {
         cards.add(new GenerosPanel(), GENEROSPANEL);
         cards.add(new PaisesPanel(), PAISESPANEL);
         cards.add(new EditorialesPanel(), EDITORIALESPANEL);
-        cards.add(new AutoresPanel(biblioSQL), AUTORESPANEL);
+        cards.add(new AutoresPanel(), AUTORESPANEL);
         cards.add(new LibrosPanel(biblioSQL), LIBROSPANEL);
 
         initComponents();
