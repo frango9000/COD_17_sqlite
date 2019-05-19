@@ -14,12 +14,12 @@ import src.model.BiblioSQL;
  *
  * @author NarF
  */
-public class LibroPanel extends javax.swing.JPanel {
+public class LibrosPanel extends javax.swing.JPanel {
 
     private String nombre;
     private final BiblioSQL biblioSQL = BiblioSQL.getOpenInstance();
 
-    public LibroPanel() {
+    public LibrosPanel() {
         nombre = "Libro";
         initComponents();
         refreshTable();
@@ -53,14 +53,14 @@ public class LibroPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "id", "<User Code>"
+                "id", "<User Code>", "fechaPub", "autor", "genero", "editorial"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -196,8 +196,14 @@ public class LibroPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable.getModel();
         model.setRowCount(0);
-        biblioSQL.queryLibros().forEach((id, name) -> {
-            Object[] row = {id, name};
+        biblioSQL.queryLibros().forEach((id, libro) -> {
+            Object[] row = {id,
+                libro.getTitulo(),
+                libro.getFormatedDate(),
+                biblioSQL.getAutores().get(libro.getIdAutor()).getNombre(),
+                biblioSQL.getGeneros().get(libro.getIdGenero()),
+                biblioSQL.getEditoriales().get(libro.getIdEditorial())
+            };
             model.addRow(row);
         });
     }
