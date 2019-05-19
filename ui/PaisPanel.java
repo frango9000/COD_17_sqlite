@@ -158,7 +158,6 @@ public class PaisPanel extends javax.swing.JPanel {
         // TODO add your handling code here:        
     }//GEN-LAST:event_jBtnCancelActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jBtnAccept;
     public javax.swing.JButton jBtnCancel;
@@ -186,6 +185,5 @@ public class PaisPanel extends javax.swing.JPanel {
     public JTextField getFieldIDPais() {
         return jTextFieldID;
     }
-    
-    
+
 }

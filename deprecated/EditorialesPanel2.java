@@ -12,6 +12,7 @@ import ui.MainFrame;
 
 /**
  * Replaced by add update deletable editoriales
+ *
  * @author NarF
  */
 public class EditorialesPanel2 extends javax.swing.JPanel {

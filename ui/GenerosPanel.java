@@ -184,12 +184,14 @@ public class GenerosPanel extends javax.swing.JPanel {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTableGeneros.getSelectedRow();
-        if(selectedRow>-1){
-            int id = (int)jTableGeneros.getValueAt(selectedRow, 0);
+        if (selectedRow > -1) {
+            int id = (int) jTableGeneros.getValueAt(selectedRow, 0);
             System.out.println(id);
             JFrame j = new GeneroFrame(id);
             j.setVisible(true);
-        }else JOptionPane.showMessageDialog(this, "Elige un genero a editar", "Generos", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige un genero a editar", "Generos", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerGenerosActionPerformed
@@ -219,18 +221,20 @@ public class GenerosPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        if(jTableGeneros.getSelectedRow() > -1){
-            int idGeneroSelected = (int)jTableGeneros.getValueAt(jTableGeneros.getSelectedRow(), 0);
+        if (jTableGeneros.getSelectedRow() > -1) {
+            int idGeneroSelected = (int) jTableGeneros.getValueAt(jTableGeneros.getSelectedRow(), 0);
             String generoSelected = biblioSQL.getGeneros().get(idGeneroSelected);
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el genero: " + generoSelected, "Eliminando Genero", JOptionPane.YES_NO_OPTION);
-            if(i == 0){
-                if(biblioSQL.deleteGenero(idGeneroSelected) > 0){
+            if (i == 0) {
+                if (biblioSQL.deleteGenero(idGeneroSelected) > 0) {
                     JOptionPane.showMessageDialog(this, "Genero eliminado: " + generoSelected, "Genero Eliminado", JOptionPane.INFORMATION_MESSAGE);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "Genero NO eliminado: " + generoSelected, "Genero Eliminado", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }else JOptionPane.showMessageDialog(this, "Elige un genero a eliminar", "Generos", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige un genero a eliminar", "Generos", JOptionPane.ERROR_MESSAGE);
+        }
         refreshTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -258,7 +262,7 @@ public class GenerosPanel extends javax.swing.JPanel {
             setTitle("Genero");
 
             panel = new GeneroPanel();
-            
+
             if (id != null) {
                 panel.getFieldID().setText(id + "");
                 panel.getFieldGenero().setText(biblioSQL.getGeneros().get(id));
@@ -276,16 +280,16 @@ public class GenerosPanel extends javax.swing.JPanel {
                     } else {
                         JOptionPane.showMessageDialog(this, "Nombre de genero invalido", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                }else{
+                } else {
                     if (panel.getFieldGenero().getText().trim().length() > 0) {
-                        if (biblioSQL.updateGenero(Integer.parseInt(panel.getFieldID().getText()),panel.getFieldGenero().getText().trim()) > 0) {
+                        if (biblioSQL.updateGenero(Integer.parseInt(panel.getFieldID().getText()), panel.getFieldGenero().getText().trim()) > 0) {
                             JOptionPane.showMessageDialog(this, "Modificacion realizada", "Genero", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Genero", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Nombre de genero invalido", "Error", JOptionPane.ERROR_MESSAGE);
-                    }                    
+                    }
                 }
                 this.dispose();
                 refreshTable();

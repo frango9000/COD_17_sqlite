@@ -12,6 +12,7 @@ import ui.MainFrame;
 
 /**
  * Replaced by add update deletable paises
+ *
  * @author NarF
  */
 public class PaisesPanel2 extends javax.swing.JPanel {

@@ -193,13 +193,14 @@ public class StartPanel extends javax.swing.JPanel {
     private void jBtnNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnNuevaActionPerformed
         // TODO add your handling code here:
         //layout.show(cards, MainFrame.NEWDBPANEL);
-        
-        if(jTextFieldBrowse.getText().trim().length() > 0){
+
+        if (jTextFieldBrowse.getText().trim().length() > 0) {
             File newfile = null;
             do {
                 String nombre = JOptionPane.showInputDialog(this, "Introduce el nombre de la biblioteca", "Nueva Biblioteca", 3);
-                if(nombre == null || nombre.length() < 1)
+                if (nombre == null || nombre.length() < 1) {
                     break;
+                }
                 File file = new File(jTextFieldBrowse.getText());
 
                 String dir = file.getAbsolutePath();
@@ -213,11 +214,11 @@ public class StartPanel extends javax.swing.JPanel {
                     break;
                 } else {
                     JOptionPane.showMessageDialog(this, "File already exists", "Alert", JOptionPane.ERROR_MESSAGE);
-                    newfile=null;
+                    newfile = null;
                 }
             } while (true);
 
-            if(newfile != null){
+            if (newfile != null) {
                 BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(newfile));
                 System.out.println("Initializing DB...");
                 biblioSQL.initializeBiblio();
@@ -231,16 +232,16 @@ public class StartPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Biblioteca creada correctamente", "Nueva Biblioteca", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
-                    JOptionPane.showMessageDialog(this, "Creacion cancelada", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Creacion cancelada", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Elige una ruta", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnNuevaActionPerformed
 
     private void jBtnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldBrowse.getText().trim().length() > 0){
+        if (jTextFieldBrowse.getText().trim().length() > 0) {
             JFileChooser chooser = new JFileChooser();
             chooser.setCurrentDirectory(new File("D:/NarF/Documents/NetBeansProjects/COD_17_sqlite/src/resources"));
             File loadfile = new File(jTextFieldBrowse.getText());
@@ -257,7 +258,9 @@ public class StartPanel extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Archivo inexistente", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
             }
-        }else JOptionPane.showMessageDialog(this, "Elige una biblioteca", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige una biblioteca", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBtnCargarActionPerformed
 
     private void jBtnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBrowseActionPerformed
@@ -268,8 +271,9 @@ public class StartPanel extends javax.swing.JPanel {
 
         if (chooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
             jTextFieldBrowse.setText(chooser.getSelectedFile().getAbsolutePath());
-            if(chooser.getSelectedFile().isFile())
+            if (chooser.getSelectedFile().isFile()) {
                 setStatusLabels();
+            }
         }
     }//GEN-LAST:event_jBtnBrowseActionPerformed
 

@@ -184,12 +184,14 @@ public class EditorialesPanel extends javax.swing.JPanel {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTableEditoriales.getSelectedRow();
-        if(selectedRow>-1){
-            int id = (int)jTableEditoriales.getValueAt(selectedRow, 0);
+        if (selectedRow > -1) {
+            int id = (int) jTableEditoriales.getValueAt(selectedRow, 0);
             System.out.println(id);
             JFrame j = new EditorialFrame(id);
             j.setVisible(true);
-        }else JOptionPane.showMessageDialog(this, "Elige una Editorial a editar", "Editoriales", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige una Editorial a editar", "Editoriales", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerEditorialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerEditorialesActionPerformed
@@ -219,18 +221,20 @@ public class EditorialesPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        if(jTableEditoriales.getSelectedRow() > -1){
-            int idEditorialSelected = (int)jTableEditoriales.getValueAt(jTableEditoriales.getSelectedRow(), 0);
+        if (jTableEditoriales.getSelectedRow() > -1) {
+            int idEditorialSelected = (int) jTableEditoriales.getValueAt(jTableEditoriales.getSelectedRow(), 0);
             String editorialStringSelected = biblioSQL.getEditoriales().get(idEditorialSelected);
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar la Editorial: " + editorialStringSelected, "Eliminando Editorial", JOptionPane.YES_NO_OPTION);
-            if(i == 0){
-                if(biblioSQL.deleteEditorial(idEditorialSelected) > 0){
+            if (i == 0) {
+                if (biblioSQL.deleteEditorial(idEditorialSelected) > 0) {
                     JOptionPane.showMessageDialog(this, "Editorial eliminada: " + editorialStringSelected, "Editorial Eliminada", JOptionPane.INFORMATION_MESSAGE);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "Editorial NO eliminada: " + editorialStringSelected, "Editorial Eliminada", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }else JOptionPane.showMessageDialog(this, "Elige una Editorial a eliminar", "Editoriales", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige una Editorial a eliminar", "Editoriales", JOptionPane.ERROR_MESSAGE);
+        }
         refreshTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -258,7 +262,7 @@ public class EditorialesPanel extends javax.swing.JPanel {
             setTitle("Editorial");
 
             panel = new EditorialPanel();
-            
+
             if (id != null) {
                 panel.getFieldID().setText(id + "");
                 panel.getFieldEditorial().setText(biblioSQL.getEditoriales().get(id));
@@ -276,16 +280,16 @@ public class EditorialesPanel extends javax.swing.JPanel {
                     } else {
                         JOptionPane.showMessageDialog(this, "Nombre de Editorial invalido", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                }else{
+                } else {
                     if (panel.getFieldEditorial().getText().trim().length() > 0) {
-                        if (biblioSQL.updateEditorial(Integer.parseInt(panel.getFieldID().getText()),panel.getFieldEditorial().getText().trim()) > 0) {
+                        if (biblioSQL.updateEditorial(Integer.parseInt(panel.getFieldID().getText()), panel.getFieldEditorial().getText().trim()) > 0) {
                             JOptionPane.showMessageDialog(this, "Modificacion realizada", "Editorial", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Editorial", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Nombre de Editorial invalido", "Error", JOptionPane.ERROR_MESSAGE);
-                    }                    
+                    }
                 }
                 this.dispose();
                 refreshTable();

@@ -5,9 +5,7 @@
  */
 package ui;
 
-import java.util.TreeMap;
 import javax.swing.table.DefaultTableModel;
-import modelo.Autor;
 import modelo.BiblioSQL;
 
 /**

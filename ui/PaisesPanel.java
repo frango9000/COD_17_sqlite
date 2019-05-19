@@ -184,12 +184,14 @@ public class PaisesPanel extends javax.swing.JPanel {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTablePaises.getSelectedRow();
-        if(selectedRow>-1){
-            int id = (int)jTablePaises.getValueAt(selectedRow, 0);
+        if (selectedRow > -1) {
+            int id = (int) jTablePaises.getValueAt(selectedRow, 0);
             System.out.println(id);
             JFrame j = new PaisFrame(id);
             j.setVisible(true);
-        }else JOptionPane.showMessageDialog(this, "Elige un pais a editar", "Paises", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige un pais a editar", "Paises", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerPaisesActionPerformed
@@ -219,18 +221,20 @@ public class PaisesPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        if(jTablePaises.getSelectedRow() > -1){
-            int idPaisSelected = (int)jTablePaises.getValueAt(jTablePaises.getSelectedRow(), 0);
+        if (jTablePaises.getSelectedRow() > -1) {
+            int idPaisSelected = (int) jTablePaises.getValueAt(jTablePaises.getSelectedRow(), 0);
             String paisSelected = biblioSQL.getPaises().get(idPaisSelected);
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el pais: " + paisSelected, "Eliminando Pais", JOptionPane.YES_NO_OPTION);
-            if(i == 0){
-                if(biblioSQL.deletePais(idPaisSelected) > 0){
+            if (i == 0) {
+                if (biblioSQL.deletePais(idPaisSelected) > 0) {
                     JOptionPane.showMessageDialog(this, "Pais eliminado: " + paisSelected, "Pais Eliminado", JOptionPane.INFORMATION_MESSAGE);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "Pais NO eliminado: " + paisSelected, "Pais Eliminado", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }else JOptionPane.showMessageDialog(this, "Elige un pais a eliminar", "Paises", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige un pais a eliminar", "Paises", JOptionPane.ERROR_MESSAGE);
+        }
         refreshTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -258,7 +262,7 @@ public class PaisesPanel extends javax.swing.JPanel {
             setTitle("Pais");
 
             panel = new PaisPanel();
-            
+
             if (id != null) {
                 panel.getFieldIDPais().setText(id + "");
                 panel.getFieldPais().setText(biblioSQL.getPaises().get(id));
@@ -276,16 +280,16 @@ public class PaisesPanel extends javax.swing.JPanel {
                     } else {
                         JOptionPane.showMessageDialog(this, "Nombre de pais invalido", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                }else{
+                } else {
                     if (panel.getFieldPais().getText().trim().length() > 0) {
-                        if (biblioSQL.updatePais(Integer.parseInt(panel.getFieldIDPais().getText()),panel.getFieldPais().getText().trim()) > 0) {
+                        if (biblioSQL.updatePais(Integer.parseInt(panel.getFieldIDPais().getText()), panel.getFieldPais().getText().trim()) > 0) {
                             JOptionPane.showMessageDialog(this, "Modificacion realizada", "Pais", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Pais", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Nombre de pais invalido", "Error", JOptionPane.ERROR_MESSAGE);
-                    }                    
+                    }
                 }
                 this.dispose();
                 refreshTable();

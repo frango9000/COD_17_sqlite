@@ -140,7 +140,6 @@ public class GeneroPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel generoLabel;
     private javax.swing.JLabel idLabel;
@@ -168,6 +167,5 @@ public class GeneroPanel extends javax.swing.JPanel {
     public JTextField getFieldID() {
         return jTextFieldID;
     }
-    
-    
+
 }

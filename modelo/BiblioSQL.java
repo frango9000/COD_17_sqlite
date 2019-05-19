@@ -64,7 +64,7 @@ public final class BiblioSQL {
         generos = new TreeMap<>();
         String sql = "SELECT * FROM generos;";
         session.connect();
-        try (Statement stmt = session.getConn().createStatement()){
+        try (Statement stmt = session.getConn().createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 generos.put(rs.getInt(1), rs.getString(2));
@@ -73,47 +73,49 @@ public final class BiblioSQL {
             //generos.forEach((e,f) -> System.out.println(e + "" + f));
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
         return generos;
     }
-    public int insertGenero(String genero){
-        String sql = "INSERT INTO generos  VALUES (NULL,'"+genero+"');";
+
+    public int insertGenero(String genero) {
+        String sql = "INSERT INTO generos  VALUES (NULL,'" + genero + "');";
         session.connect();
         int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
         return rows;
     }
-    public int updateGenero(int idGenero, String genero){
-        String sql = "UPDATE generos SET genero = '"+genero+"' WHERE idGenero = '"+idGenero+"';";
+
+    public int updateGenero(int idGenero, String genero) {
+        String sql = "UPDATE generos SET genero = '" + genero + "' WHERE idGenero = '" + idGenero + "';";
         session.connect();
         int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
-        return rows;        
+        return rows;
     }
-    
-    public int deleteGenero(int idGenero){
-        String sql = "DELETE FROM generos WHERE idGenero = '"+idGenero+"';";
+
+    public int deleteGenero(int idGenero) {
+        String sql = "DELETE FROM generos WHERE idGenero = '" + idGenero + "';";
         session.connect();
         int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
         return rows;
@@ -127,7 +129,7 @@ public final class BiblioSQL {
         paises = new TreeMap<>();
         String sql = "SELECT * FROM paises;";
         session.connect();
-        try (Statement stmt = session.getConn().createStatement()){
+        try (Statement stmt = session.getConn().createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 paises.put(rs.getInt(1), rs.getString(2));
@@ -136,96 +138,95 @@ public final class BiblioSQL {
             //paises.forEach((e,f) -> System.out.println(e + "" + f));
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
         return paises;
     }
-    
-    public int insertPais(String pais){
-        String sql = "INSERT INTO paises VALUES (NULL,'"+pais+"');";
+
+    public int insertPais(String pais) {
+        String sql = "INSERT INTO paises VALUES (NULL,'" + pais + "');";
         session.connect();
         int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            session.close();
-        }
-        return rows;
-    }
-    public int updatePais(int idPais, String pais){
-        String sql = "UPDATE paises SET pais = '"+pais+"' WHERE idPais = '"+idPais+"';";
-        session.connect();
-        int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
-        } catch (SQLException ex) {
-            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            session.close();
-        }
-        return rows;        
-    }
-    
-    public int deletePais(int idPais){
-        String sql = "DELETE FROM paises WHERE idPais = '"+idPais+"';";
-        session.connect();
-        int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
-        } catch (SQLException ex) {
-            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
         return rows;
     }
 
-
-    
-    public int insertEditorial(String editorial){
-        String sql = "INSERT INTO editoriales VALUES (NULL,'"+editorial+"');";
+    public int updatePais(int idPais, String pais) {
+        String sql = "UPDATE paises SET pais = '" + pais + "' WHERE idPais = '" + idPais + "';";
         session.connect();
         int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            session.close();
-        }
-        return rows;
-    }
-    public int updateEditorial(int idEditorial, String editorial){
-        String sql = "UPDATE editoriales SET editorial = '"+editorial+"' WHERE idEditorial = '"+idEditorial+"';";
-        session.connect();
-        int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
-        } catch (SQLException ex) {
-            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            session.close();
-        }
-        return rows;        
-    }
-    
-    public int deleteEditorial(int idEditorial){
-        String sql = "DELETE FROM editoriales WHERE idEditorial = '"+idEditorial+"';";
-        session.connect();
-        int rows = 0;
-        try(Statement stmt = session.getConn().createStatement()){
-            rows = stmt.executeUpdate(sql);            
-        } catch (SQLException ex) {
-            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
         return rows;
     }
 
+    public int deletePais(int idPais) {
+        String sql = "DELETE FROM paises WHERE idPais = '" + idPais + "';";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+
+    public int insertEditorial(String editorial) {
+        String sql = "INSERT INTO editoriales VALUES (NULL,'" + editorial + "');";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+
+    public int updateEditorial(int idEditorial, String editorial) {
+        String sql = "UPDATE editoriales SET editorial = '" + editorial + "' WHERE idEditorial = '" + idEditorial + "';";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
+
+    public int deleteEditorial(int idEditorial) {
+        String sql = "DELETE FROM editoriales WHERE idEditorial = '" + idEditorial + "';";
+        session.connect();
+        int rows = 0;
+        try (Statement stmt = session.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return rows;
+    }
 
     public TreeMap<Integer, String> getEditoriales() {
         return editoriales;
@@ -235,7 +236,7 @@ public final class BiblioSQL {
         editoriales = new TreeMap<>();
         String sql = "SELECT * FROM editoriales;";
         session.connect();
-        try (Statement stmt = session.getConn().createStatement()){
+        try (Statement stmt = session.getConn().createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 editoriales.put(rs.getInt(1), rs.getString(2));
@@ -244,7 +245,7 @@ public final class BiblioSQL {
             //editoriales.forEach((e,f) -> System.out.println(e + "" + f));
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
         return editoriales;
@@ -258,7 +259,7 @@ public final class BiblioSQL {
         autores = new TreeMap<>();
         String sql = "SELECT * FROM autores;";
         session.connect();
-        try (Statement stmt = session.getConn().createStatement()){
+        try (Statement stmt = session.getConn().createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Date date = null;
@@ -276,7 +277,7 @@ public final class BiblioSQL {
             //autores.forEach((e,f) -> System.out.println(f));
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             session.close();
         }
         return autores;
@@ -289,8 +290,8 @@ public final class BiblioSQL {
     public TreeMap<Integer, Libro> queryLibros() {
         libros = new TreeMap<>();
         String sql = "SELECT * FROM libros;";
-            session.connect();
-        try (Statement stmt = session.getConn().createStatement()){
+        session.connect();
+        try (Statement stmt = session.getConn().createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Date date = null;
@@ -308,8 +309,8 @@ public final class BiblioSQL {
             //libros.forEach((e,f) -> System.out.println(f));
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            session.close();            
+        } finally {
+            session.close();
         }
         return libros;
     }
