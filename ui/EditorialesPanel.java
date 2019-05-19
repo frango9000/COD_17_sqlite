@@ -5,7 +5,9 @@
  */
 package ui;
 
-import java.util.TreeMap;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.BiblioSQL;
 
@@ -18,7 +20,7 @@ public class EditorialesPanel extends javax.swing.JPanel {
     BiblioSQL biblioSQL;
 
     /**
-     * Creates new form GenerosPanel
+     * Creates new form EditorialesPanel
      */
     public EditorialesPanel() {
     }
@@ -38,25 +40,27 @@ public class EditorialesPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableGeneros = new javax.swing.JTable();
+        jTableEditoriales = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        btnLeerGeneros = new javax.swing.JButton();
+        btnLeerEditoriales = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Generos");
+        jLabel2.setText("Editoriales");
 
-        jTableGeneros.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEditoriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "Genero"
+                "id", "Editorial"
             }
         ) {
             Class[] types = new Class [] {
@@ -74,23 +78,29 @@ public class EditorialesPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTableGeneros.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTableGeneros);
-        if (jTableGeneros.getColumnModel().getColumnCount() > 0) {
-            jTableGeneros.getColumnModel().getColumn(0).setMinWidth(25);
-            jTableGeneros.getColumnModel().getColumn(1).setMinWidth(130);
+        jTableEditoriales.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTableEditoriales);
+        if (jTableEditoriales.getColumnModel().getColumnCount() > 0) {
+            jTableEditoriales.getColumnModel().getColumn(0).setMinWidth(30);
+            jTableEditoriales.getColumnModel().getColumn(0).setMaxWidth(30);
+            jTableEditoriales.getColumnModel().getColumn(1).setMinWidth(130);
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnLeerGeneros.setText("Leer");
-        btnLeerGeneros.addActionListener(new java.awt.event.ActionListener() {
+        btnLeerEditoriales.setText("Refrescar");
+        btnLeerEditoriales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLeerGenerosActionPerformed(evt);
+                btnLeerEditorialesActionPerformed(evt);
             }
         });
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Editar");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +116,13 @@ public class EditorialesPanel extends javax.swing.JPanel {
             }
         });
 
+        btnDelete.setText("Eliminar");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -113,22 +130,25 @@ public class EditorialesPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLeerGeneros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLeerEditoriales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnLeerGeneros)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgregar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addComponent(btnLeerEditoriales)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVolver)
                 .addContainerGap())
         );
@@ -142,7 +162,7 @@ public class EditorialesPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)))
@@ -163,15 +183,22 @@ public class EditorialesPanel extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTableEditoriales.getSelectedRow();
+        if(selectedRow>-1){
+            int id = (int)jTableEditoriales.getValueAt(selectedRow, 0);
+            System.out.println(id);
+            JFrame j = new EditorialFrame(id);
+            j.setVisible(true);
+        }else JOptionPane.showMessageDialog(this, "Elige una Editorial a editar", "Editoriales", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnLeerGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerGenerosActionPerformed
+    private void btnLeerEditorialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerEditorialesActionPerformed
         refreshTable();
-    }//GEN-LAST:event_btnLeerGenerosActionPerformed
+    }//GEN-LAST:event_btnLeerEditorialesActionPerformed
 
     private void refreshTable() {
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) jTableGeneros.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableEditoriales.getModel();
         model.setRowCount(0);
         biblioSQL.queryEditoriales().forEach((in, st) -> {
             Object[] row = {in, st};
@@ -184,14 +211,91 @@ public class EditorialesPanel extends javax.swing.JPanel {
         MainFrame.setCard(MainFrame.MAINMENUPANEL);
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        JFrame j = new EditorialFrame(null);
+        j.setVisible(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        if(jTableEditoriales.getSelectedRow() > -1){
+            int idEditorialSelected = (int)jTableEditoriales.getValueAt(jTableEditoriales.getSelectedRow(), 0);
+            String editorialStringSelected = biblioSQL.getEditoriales().get(idEditorialSelected);
+            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar la Editorial: " + editorialStringSelected, "Eliminando Editorial", JOptionPane.YES_NO_OPTION);
+            if(i == 0){
+                if(biblioSQL.deleteEditorial(idEditorialSelected) > 0){
+                    JOptionPane.showMessageDialog(this, "Editorial eliminada: " + editorialStringSelected, "Editorial Eliminada", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Editorial NO eliminada: " + editorialStringSelected, "Editorial Eliminada", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else JOptionPane.showMessageDialog(this, "Elige una Editorial a eliminar", "Editoriales", JOptionPane.ERROR_MESSAGE);
+        refreshTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnLeerGeneros;
+    private javax.swing.JButton btnLeerEditoriales;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableGeneros;
+    private javax.swing.JTable jTableEditoriales;
     // End of variables declaration//GEN-END:variables
+
+    class EditorialFrame extends JFrame {
+
+        private EditorialPanel panel;
+
+        public EditorialFrame(Integer id) {
+            setMinimumSize(new Dimension(350, 275));
+
+            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            setTitle("Editorial");
+
+            panel = new EditorialPanel();
+            
+            if (id != null) {
+                panel.getFieldID().setText(id + "");
+                panel.getFieldEditorial().setText(biblioSQL.getEditoriales().get(id));
+            }
+
+            panel.getBtnEditorialCancel().addActionListener(e -> this.dispose());
+            panel.getBtnEditorialAccept().addActionListener(e -> {
+                if (panel.getFieldID().getText().length() == 0) {
+                    if (panel.getFieldEditorial().getText().trim().length() > 0) {
+                        if (biblioSQL.insertEditorial(panel.getFieldEditorial().getText().trim()) > 0) {
+                            JOptionPane.showMessageDialog(this, "Insercion realizada", "Editorial", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Insercion rechazada", "Editorial", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Nombre de Editorial invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    if (panel.getFieldEditorial().getText().trim().length() > 0) {
+                        if (biblioSQL.updateEditorial(Integer.parseInt(panel.getFieldID().getText()),panel.getFieldEditorial().getText().trim()) > 0) {
+                            JOptionPane.showMessageDialog(this, "Modificacion realizada", "Editorial", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Editorial", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Nombre de Editorial invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                    }                    
+                }
+                this.dispose();
+                refreshTable();
+            });
+            setContentPane(panel);
+
+            pack();
+            this.setLocationRelativeTo(null);
+        }
+
+    }
+
 }

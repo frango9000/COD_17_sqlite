@@ -210,10 +210,10 @@ public class StartPanel extends javax.swing.JPanel {
                 newfile = new File(dir + "\\" + nombre + ".db");
 
                 if (!newfile.exists()) {
-                    newfile=null;
                     break;
                 } else {
                     JOptionPane.showMessageDialog(this, "File already exists", "Alert", JOptionPane.ERROR_MESSAGE);
+                    newfile=null;
                 }
             } while (true);
 
@@ -268,7 +268,8 @@ public class StartPanel extends javax.swing.JPanel {
 
         if (chooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
             jTextFieldBrowse.setText(chooser.getSelectedFile().getAbsolutePath());
-            setStatusLabels();
+            if(chooser.getSelectedFile().isFile())
+                setStatusLabels();
         }
     }//GEN-LAST:event_jBtnBrowseActionPerformed
 

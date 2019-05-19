@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS autores (
 
 CREATE TABLE IF NOT EXISTS editoriales (
                         idEditorial integer PRIMARY KEY,
-                        nombreEditorial text NOT NULL UNIQUE
+                        editorial text NOT NULL UNIQUE
                     );
 
 CREATE TABLE IF NOT EXISTS generos (

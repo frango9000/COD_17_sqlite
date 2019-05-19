@@ -184,6 +184,49 @@ public final class BiblioSQL {
     }
 
 
+    
+    public int insertEditorial(String editorial){
+        String sql = "INSERT INTO editoriales VALUES (NULL,'"+editorial+"');";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
+        }
+        return rows;
+    }
+    public int updateEditorial(int idEditorial, String editorial){
+        String sql = "UPDATE editoriales SET editorial = '"+editorial+"' WHERE idEditorial = '"+idEditorial+"';";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
+        }
+        return rows;        
+    }
+    
+    public int deleteEditorial(int idEditorial){
+        String sql = "DELETE FROM editoriales WHERE idEditorial = '"+idEditorial+"';";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
+        }
+        return rows;
+    }
+
+
     public TreeMap<Integer, String> getEditoriales() {
         return editoriales;
     }
