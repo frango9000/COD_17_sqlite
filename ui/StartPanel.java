@@ -85,6 +85,8 @@ public class StartPanel extends javax.swing.JPanel {
             }
         });
 
+        jTextFieldBrowse.setEditable(false);
+
         jLabel2.setText("Elige una biblioteca o crea una nueva:");
 
         jLabel3.setText("Status:");
@@ -191,57 +193,71 @@ public class StartPanel extends javax.swing.JPanel {
     private void jBtnNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnNuevaActionPerformed
         // TODO add your handling code here:
         //layout.show(cards, MainFrame.NEWDBPANEL);
-        File newfile;
-        do {
-            String nombre = JOptionPane.showInputDialog(this, "Introduce el nombre de la biblioteca", "Nueva Biblioteca", 3);
-            File file = new File(jTextFieldBrowse.getText());
+        
+        if(jTextFieldBrowse.getText().trim().length() > 0){
+            File newfile = null;
+            do {
+                String nombre = JOptionPane.showInputDialog(this, "Introduce el nombre de la biblioteca", "Nueva Biblioteca", 3);
+                if(nombre == null || nombre.length() < 1)
+                    break;
+                File file = new File(jTextFieldBrowse.getText());
 
-            String dir = file.getAbsolutePath();
-            if (file.isFile()) {
-                String full = file.getAbsolutePath();
-                dir = full.substring(0, full.lastIndexOf("\\"));
-            }
-            newfile = new File(dir + "\\" + nombre + ".db");
+                String dir = file.getAbsolutePath();
+                if (file.isFile()) {
+                    String full = file.getAbsolutePath();
+                    dir = full.substring(0, full.lastIndexOf("\\"));
+                }
+                newfile = new File(dir + "\\" + nombre + ".db");
 
-            if (!newfile.exists()) {
-                break;
+                if (!newfile.exists()) {
+                    newfile=null;
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(this, "File already exists", "Alert", JOptionPane.ERROR_MESSAGE);
+                }
+            } while (true);
+
+            if(newfile != null){
+                BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(newfile));
+                System.out.println("Initializing DB...");
+                biblioSQL.initializeBiblio();
+                int i = JOptionPane.showConfirmDialog(this, "Insertar demo data?", "Nueva Biblioteca", JOptionPane.YES_NO_OPTION);
+                if (i == 0) {
+                    System.out.println("Inserting Demo Data...");
+                    biblioSQL.insertDemoData();
+                }
+                jTextFieldBrowse.setText(newfile.getAbsolutePath());
+                setStatusLabels();
+                JOptionPane.showMessageDialog(this, "Biblioteca creada correctamente", "Nueva Biblioteca", JOptionPane.INFORMATION_MESSAGE);
+
             } else {
-                JOptionPane.showMessageDialog(this, "File already exists", "Alert", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Creacion cancelada", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
             }
-        } while (true);
-
-        BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(newfile));
-        System.out.println("Initializing DB...");
-        biblioSQL.initializeBiblio();
-        int i = JOptionPane.showConfirmDialog(this, "Insertar demo data?", "Nueva Biblioteca", JOptionPane.YES_NO_OPTION);
-        if (i == 0) {
-            System.out.println("Inserting Demo Data...");
-            biblioSQL.insertDemoData();
+        }else{
+            JOptionPane.showMessageDialog(this, "Elige una ruta", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
         }
-        jTextFieldBrowse.setText(newfile.getAbsolutePath());
-        setStatusLabels();
-        JOptionPane.showMessageDialog(this, "Biblioteca creada correctamente", "Nueva Biblioteca", JOptionPane.INFORMATION_MESSAGE);
-
     }//GEN-LAST:event_jBtnNuevaActionPerformed
 
     private void jBtnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarActionPerformed
         // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File("D:/NarF/Documents/NetBeansProjects/COD_17_sqlite/src/resources"));
-        File loadfile = new File(jTextFieldBrowse.getText());
-        if (loadfile.exists()) {
-            BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(loadfile));
+        if(jTextFieldBrowse.getText().trim().length() > 0){
+            JFileChooser chooser = new JFileChooser();
+            chooser.setCurrentDirectory(new File("D:/NarF/Documents/NetBeansProjects/COD_17_sqlite/src/resources"));
+            File loadfile = new File(jTextFieldBrowse.getText());
+            if (loadfile.exists()) {
+                BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(loadfile));
 
-            if (biblioSQL.isValid()) {
-                JPanel menuCard = new MenuPanel(biblioSQL);
-                cards.add(menuCard, MAINMENUPANEL);
-                layout.show(cards, MAINMENUPANEL);
+                if (biblioSQL.isValid()) {
+                    JPanel menuCard = new MenuPanel(biblioSQL);
+                    cards.add(menuCard, MAINMENUPANEL);
+                    layout.show(cards, MAINMENUPANEL);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Biblioteca Invalida", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Biblioteca Invalida", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Archivo inexistente", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Archivo inexistente", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
-        }
+        }else JOptionPane.showMessageDialog(this, "Elige una biblioteca", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jBtnCargarActionPerformed
 
     private void jBtnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBrowseActionPerformed

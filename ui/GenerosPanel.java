@@ -51,6 +51,7 @@ public class GenerosPanel extends javax.swing.JPanel {
         btnAgregar = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -88,7 +89,7 @@ public class GenerosPanel extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnLeerGeneros.setText("Leer");
+        btnLeerGeneros.setText("Refrescar");
         btnLeerGeneros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLeerGenerosActionPerformed(evt);
@@ -116,6 +117,13 @@ public class GenerosPanel extends javax.swing.JPanel {
             }
         });
 
+        btnDelete.setText("Eliminar");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -126,19 +134,22 @@ public class GenerosPanel extends javax.swing.JPanel {
                     .addComponent(btnLeerGeneros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnAgregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEdit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(btnLeerGeneros)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVolver)
                 .addContainerGap())
         );
@@ -152,7 +163,7 @@ public class GenerosPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)))
@@ -173,9 +184,13 @@ public class GenerosPanel extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        System.out.println(jTableGeneros.getSelectedRow());
-        JFrame j = new GeneroFrame(jTableGeneros.getSelectedRow());
-        j.setVisible(true);
+        int selectedRow = jTableGeneros.getSelectedRow();
+        if(selectedRow>-1){
+            int id = (int)jTableGeneros.getValueAt(selectedRow, 0);
+            System.out.println(id);
+            JFrame j = new GeneroFrame(id);
+            j.setVisible(true);
+        }else JOptionPane.showMessageDialog(this, "Elige un genero a editar", "Generos", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnLeerGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerGenerosActionPerformed
@@ -203,8 +218,26 @@ public class GenerosPanel extends javax.swing.JPanel {
         j.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        if(jTableGeneros.getSelectedRow() > -1){
+            int idGeneroSelected = (int)jTableGeneros.getValueAt(jTableGeneros.getSelectedRow(), 0);
+            String generoSelected = biblioSQL.getGeneros().get(idGeneroSelected);
+            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el genero: " + generoSelected, "Eliminando Genero", JOptionPane.YES_NO_OPTION);
+            if(i == 0){
+                if(biblioSQL.deleteGenero(idGeneroSelected) > 0){
+                    JOptionPane.showMessageDialog(this, "Genero eliminado: " + generoSelected, "Genero Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Genero NO eliminado: " + generoSelected, "Genero Eliminado", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else JOptionPane.showMessageDialog(this, "Elige un genero a eliminar", "Generos", JOptionPane.ERROR_MESSAGE);
+        refreshTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLeerGeneros;
     private javax.swing.JButton btnVolver;
@@ -225,12 +258,13 @@ public class GenerosPanel extends javax.swing.JPanel {
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
             setTitle("Genero");
 
+            panel = new GeneroPanel();
+            
             if (id != null) {
                 panel.getjTextFieldID().setText(id + "");
                 panel.getjTextFieldGenero().setText(biblioSQL.getGeneros().get(id));
             }
 
-            panel = new GeneroPanel();
             panel.getjBtnCancel().addActionListener(e -> this.dispose());
             panel.getjBtnAccept().addActionListener(e -> {
                 if (panel.getjTextFieldID().getText().length() == 0) {
@@ -243,7 +277,19 @@ public class GenerosPanel extends javax.swing.JPanel {
                     } else {
                         JOptionPane.showMessageDialog(this, "Nombre de genero invalido", "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                }else{
+                    if (panel.getjTextFieldGenero().getText().trim().length() > 0) {
+                        if (biblioSQL.updateGenero(Integer.parseInt(panel.getjTextFieldID().getText()),panel.getjTextFieldGenero().getText().trim()) > 0) {
+                            JOptionPane.showMessageDialog(this, "Modificacion realizada", "Genero", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", "Genero", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Nombre de genero invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                    }                    
                 }
+                this.dispose();
+                refreshTable();
             });
             setContentPane(panel);
 

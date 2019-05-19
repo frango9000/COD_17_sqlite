@@ -86,6 +86,35 @@ public final class BiblioSQL {
             rows = stmt.executeUpdate(sql);            
         } catch (SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
+        }
+        return rows;
+    }
+    public int updateGenero(int idGenero, String genero){
+        String sql = "UPDATE generos SET genero = '"+genero+"' WHERE idGenero = '"+idGenero+"';";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
+        }
+        return rows;        
+    }
+    
+    public int deleteGenero(int idGenero){
+        String sql = "DELETE FROM generos WHERE idGenero = '"+idGenero+"';";
+        session.connect();
+        int rows = 0;
+        try(Statement stmt = session.getConn().createStatement()){
+            rows = stmt.executeUpdate(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            session.close();
         }
         return rows;
     }
