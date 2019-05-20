@@ -5,9 +5,10 @@
  */
 package src.model;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -17,14 +18,20 @@ public class Autor {
 
     private int idAutor;
     private String nombre;
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private int idPais;
-    private String pais;
 
-    public Autor(int idAutor, String nombre, Date fechaNacimiento, int idPais) {
+    public Autor(int idAutor, String nombre, LocalDate fechaNacimiento, int idPais) {
         this.idAutor = idAutor;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
+        this.idPais = idPais;
+    }
+
+    public Autor(int idAutor, String nombre, String fechaNacimiento, int idPais) {
+        this.idAutor = idAutor;
+        this.nombre = nombre;
+        this.fechaNacimiento = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSS"));
         this.idPais = idPais;
     }
 
@@ -36,15 +43,23 @@ public class Autor {
         return nombre;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
     public String getFormatedDate() {
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTime(fechaNacimiento);
-        return String.format("%02d/%02d/%04d", cal.get(Calendar.DATE), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
-    }    
+        return fechaNacimiento.format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
+    }
+
+    public String getDbDate() {
+        LocalDateTime ldt = LocalDateTime.of(fechaNacimiento, LocalTime.of(0, 0, 0, 0));
+        return ldt.format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSS"));
+    }
+    
+    public static String getDbDate(String ddMMuuuu){
+        LocalDateTime ldt = LocalDateTime.of(LocalDate.parse(ddMMuuuu, DateTimeFormatter.ofPattern("dd-MM-uuuu")), LocalTime.of(0, 0, 0, 0));
+        return ldt.format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSS"));
+    }
 
     public int getIdPais() {
         return idPais;

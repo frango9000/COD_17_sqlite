@@ -5,7 +5,9 @@
  */
 package src.ui;
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.awt.Dimension;
+import java.time.format.DateTimeFormatter;
 import java.util.Map.Entry;
 import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
@@ -34,17 +36,24 @@ public final class AutorFrame extends javax.swing.JFrame {
         setTitle(nombre);
 
         @SuppressWarnings("unchecked")
-        DefaultComboBoxModel<String> cbm = (DefaultComboBoxModel)jComboBoxPais.getModel();
-
+        DefaultComboBoxModel<String> comboBoxModel = (DefaultComboBoxModel)jComboBoxPais.getModel();
+        DatePickerSettings settings = new DatePickerSettings();
+        
+        settings.setFormatForDatesCommonEra("dd-MM-uuuu");
+        settings.setAllowKeyboardEditing(false);
+        datePicker1.setSettings(settings);
+        
+        Set<Integer> set = biblioSQL.getPaises().keySet();
+        set.forEach(e -> comboBoxModel.addElement(biblioSQL.getPaises().get(e)));
+        
         if (id != null) {
             Autor autor = biblioSQL.getAutores().get(id);
             
             jTextFieldID.setText(id + "");
             jTextFieldName.setText(autor.getNombre());
-            jTextFieldFechaNac.setText(autor.getFormatedDate());            
+            datePicker1.setDate(autor.getFechaNacimiento());
+            jComboBoxPais.setSelectedItem((String)biblioSQL.getPaises().get(autor.getIdPais()));
         }
-        Set<Integer> set = biblioSQL.getPaises().keySet();
-        set.forEach(e -> cbm.addElement(biblioSQL.getPaises().get(e)));
 
         this.setLocationRelativeTo(null);
     }
@@ -67,9 +76,9 @@ public final class AutorFrame extends javax.swing.JFrame {
         nameLabel = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
         jLabelFechaNac = new javax.swing.JLabel();
-        jTextFieldFechaNac = new javax.swing.JTextField();
         jLabelPais = new javax.swing.JLabel();
         jComboBoxPais = new javax.swing.JComboBox<>();
+        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
         jBtnCancel = new javax.swing.JButton();
         jBtnAccept = new javax.swing.JButton();
 
@@ -108,17 +117,17 @@ public final class AutorFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFechaNac))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
@@ -135,7 +144,7 @@ public final class AutorFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelFechaNac)
-                    .addComponent(jTextFieldFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPais)
@@ -231,12 +240,11 @@ public final class AutorFrame extends javax.swing.JFrame {
                 nuevoPais = en.getKey();
                 break;
             }
-        }
-        System.out.println(nuevoPais);
-        
+        }        
         if (jTextFieldID.getText().length() == 0) {
             if (jTextFieldName.getText().trim().length() > 0) {
-                if (biblioSQL.insertAutor(jTextFieldName.getText().trim()) > 0) {
+                int rows = biblioSQL.insertAutor(jTextFieldName.getText().trim(),Autor.getDbDate(datePicker1.getText()),nuevoPais);
+                if (rows > 0) {
                     JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -246,7 +254,7 @@ public final class AutorFrame extends javax.swing.JFrame {
             }
         } else {
             if (jTextFieldName.getText().trim().length() > 0) {
-                int rows = biblioSQL.updateAutor(Integer.parseInt(jTextFieldID.getText()), jTextFieldName.getText().trim(), nuevoPais);
+                int rows = biblioSQL.updateAutor(Integer.parseInt(jTextFieldID.getText()), jTextFieldName.getText().trim(),Autor.getDbDate(datePicker1.getText()), nuevoPais);
                 if ( rows > 0 ) {
                     JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -266,6 +274,7 @@ public final class AutorFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JLabel idLabel;
     public javax.swing.JButton jBtnAccept;
     public javax.swing.JButton jBtnCancel;
@@ -275,7 +284,6 @@ public final class AutorFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextFieldFechaNac;
     private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldName;
     private javax.swing.JLabel nameLabel;

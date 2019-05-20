@@ -269,15 +269,7 @@ public final class BiblioSQL {
         try (Statement stmt = session.getConn().createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                Date date = null;
-                try {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-                    date = dateFormat.parse(rs.getString(3));
-                } catch (ParseException ex) {
-                    System.out.println("Exception Parsing Date!!!!");
-                    Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Autor autor = new Autor(rs.getInt(1), rs.getString(2), date, rs.getInt(4));
+                Autor autor = new Autor(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
                 autores.put(rs.getInt(1), autor);
             }
             System.out.println(sql);
@@ -290,8 +282,8 @@ public final class BiblioSQL {
         return autores;
     }
 
-    public int insertAutor(String autor) {
-        String sql = "INSERT INTO autores VALUES (NULL,'" + autor + "');";
+    public int insertAutor(String autor, String fechaNacimiento, int idPais) {
+        String sql = "INSERT INTO autores VALUES (NULL,'" + autor + "', '"+fechaNacimiento+"', '"+idPais+"');";
         session.connect();
         int rows = 0;
         try (Statement stmt = session.getConn().createStatement()) {
@@ -304,8 +296,8 @@ public final class BiblioSQL {
         return rows;
     }
 
-    public int updateAutor(int idAutor, String autor, int idPais) {
-        String sql = "UPDATE autores SET nombre = '" + autor + "', idPais = '" + idPais + "' WHERE idAutor = '" + idAutor + "';";
+    public int updateAutor(int idAutor, String autor, String fechaNacimiento, int idPais) {
+        String sql = "UPDATE autores SET nombre = '" + autor + "', idPais = '" + idPais + "', fechaNacimiento = '"+fechaNacimiento+"' WHERE idAutor = '" + idAutor + "';";
         session.connect();
         int rows = 0;
         try (Statement stmt = session.getConn().createStatement()) {
@@ -454,6 +446,5 @@ public final class BiblioSQL {
         }finally{
             session.close();            
         }
-    }
-
+    }    
 }
