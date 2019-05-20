@@ -31,6 +31,7 @@ public class StartPanel extends javax.swing.JPanel {
         this.cards = MainFrame.getCards();
         layout = (CardLayout) cards.getLayout();
         initComponents();
+        
     }
 
     /**
@@ -47,7 +48,7 @@ public class StartPanel extends javax.swing.JPanel {
         jBtnNueva = new javax.swing.JButton();
         jBtnCargar = new javax.swing.JButton();
         jBtnBrowse = new javax.swing.JButton();
-        jTextFieldBrowse = new javax.swing.JTextField();
+        jTextFieldBrowse = new javax.swing.JTextField(System.getProperty("user.dir") + "/src/resources");
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -267,8 +268,8 @@ public class StartPanel extends javax.swing.JPanel {
     private void jBtnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBrowseActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new File("D:/NarF/Documents/NetBeansProjects/COD_17_sqlite/src/resources"));
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        chooser.setCurrentDirectory(new File(jTextFieldBrowse.getText()));
 
         if (chooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
             jTextFieldBrowse.setText(chooser.getSelectedFile().getAbsolutePath());
