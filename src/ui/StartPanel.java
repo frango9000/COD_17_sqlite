@@ -207,9 +207,9 @@ public class StartPanel extends javax.swing.JPanel {
                 String dir = file.getAbsolutePath();
                 if (file.isFile()) {
                     String full = file.getAbsolutePath();
-                    dir = full.substring(0, full.lastIndexOf("\\"));
+                    dir = full.substring(0, full.lastIndexOf("/"));
                 }
-                newfile = new File(dir + "\\" + nombre + ".db");
+                newfile = new File(dir + "/" + nombre + ".db");
 
                 if (!newfile.exists()) {
                     break;

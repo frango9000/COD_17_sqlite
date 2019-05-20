@@ -304,8 +304,8 @@ public final class BiblioSQL {
         return rows;
     }
 
-    public int updateAutor(int idAutor, String autor) {
-        String sql = "UPDATE autores SET nombre = '" + autor + "' WHERE idAutor = '" + idAutor + "';";
+    public int updateAutor(int idAutor, String autor, int idPais) {
+        String sql = "UPDATE autores SET nombre = '" + autor + "', idPais = '" + idPais + "' WHERE idAutor = '" + idAutor + "';";
         session.connect();
         int rows = 0;
         try (Statement stmt = session.getConn().createStatement()) {
