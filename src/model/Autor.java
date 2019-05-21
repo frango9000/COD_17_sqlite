@@ -21,6 +21,9 @@ public class Autor {
     private LocalDate fechaNacimiento;
     private int idPais;
 
+    public static final String USER_DATE = "dd-MM-uuuu";
+    public static final String DB_DATE = "uuuu-MM-dd HH:mm:ss.SSS";
+
     public Autor(int idAutor, String nombre, LocalDate fechaNacimiento, int idPais) {
         this.idAutor = idAutor;
         this.nombre = nombre;
@@ -31,7 +34,7 @@ public class Autor {
     public Autor(int idAutor, String nombre, String fechaNacimiento, int idPais) {
         this.idAutor = idAutor;
         this.nombre = nombre;
-        this.fechaNacimiento = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSS"));
+        this.fechaNacimiento = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern(DB_DATE));
         this.idPais = idPais;
     }
 
@@ -48,17 +51,17 @@ public class Autor {
     }
 
     public String getFormatedDate() {
-        return fechaNacimiento.format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
+        return fechaNacimiento.format(DateTimeFormatter.ofPattern(USER_DATE));
     }
 
     public String getDbDate() {
         LocalDateTime ldt = LocalDateTime.of(fechaNacimiento, LocalTime.of(0, 0, 0, 0));
-        return ldt.format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSS"));
+        return ldt.format(DateTimeFormatter.ofPattern(DB_DATE));
     }
-    
-    public static String getDbDate(String ddMMuuuu){
-        LocalDateTime ldt = LocalDateTime.of(LocalDate.parse(ddMMuuuu, DateTimeFormatter.ofPattern("dd-MM-uuuu")), LocalTime.of(0, 0, 0, 0));
-        return ldt.format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSS"));
+
+    public static String getDbDate(String ddMMuuuu) {
+        LocalDateTime ldt = LocalDateTime.of(LocalDate.parse(ddMMuuuu, DateTimeFormatter.ofPattern(USER_DATE)), LocalTime.of(0, 0, 0, 0));
+        return ldt.format(DateTimeFormatter.ofPattern(DB_DATE));
     }
 
     public int getIdPais() {

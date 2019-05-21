@@ -5,10 +5,10 @@
  */
 package src.model;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -18,27 +18,18 @@ public class Libro {
 
     private int idLibro;
     private String titulo;
-    private Date fechaPublicacion;
-    private Autor autor;
+    private LocalDate fechaPublicacion;
     private int idAutor;
-    private String genero;
     private int idGenero;
-    private String editorial;
     private int idEditorial;
 
-    public Libro(int idLibro, String titulo, Date fechaPublicacion, Autor autor, String genero, String editorial) {
-        this.idLibro = idLibro;
-        this.titulo = titulo;
-        this.fechaPublicacion = fechaPublicacion;
-        this.autor = autor;
-        this.genero = genero;
-        this.editorial = editorial;
-    }
+    private static final String userDateFormat = "dd-MM-uuuu";
+    private static final String dbDateFormat = "uuuu-MM-dd HH:mm:ss.SSS";
 
-    public Libro(int idLibro, String titulo, Date fechaPublicacion, int idAutor, int idGenero, int idEditorial) {
+    public Libro(int idLibro, String titulo, String fechaPublicacion, int idAutor, int idGenero, int idEditorial) {
         this.idLibro = idLibro;
         this.titulo = titulo;
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = LocalDate.parse(fechaPublicacion, DateTimeFormatter.ofPattern(dbDateFormat));
         this.idAutor = idAutor;
         this.idGenero = idGenero;
         this.idEditorial = idEditorial;
@@ -52,38 +43,39 @@ public class Libro {
         return titulo;
     }
 
-    public Date getFechaPublicacion() {
+    public LocalDate getFechaPublicacion() {
         return fechaPublicacion;
     }
 
     public String getFormatedDate() {
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTime(fechaPublicacion);
-        return String.format("%02d/%02d/%04d", cal.get(Calendar.DATE), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
+        return fechaPublicacion.format(DateTimeFormatter.ofPattern(userDateFormat));
     }
 
-    public Autor getAutor() {
-        return autor;
+    public String getDbDate() {
+        LocalDateTime ldt = LocalDateTime.of(fechaPublicacion, LocalTime.of(0, 0, 0, 0));
+        return ldt.format(DateTimeFormatter.ofPattern(dbDateFormat));
+    }
+
+    public static String getDbDate(String ddMMuuuu) {
+        LocalDateTime ldt = LocalDateTime.of(LocalDate.parse(ddMMuuuu, DateTimeFormatter.ofPattern(userDateFormat)), LocalTime.of(0, 0, 0, 0));
+        return ldt.format(DateTimeFormatter.ofPattern(dbDateFormat));
     }
 
     public int getIdAutor() {
         return idAutor;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
     public int getIdGenero() {
         return idGenero;
     }
 
-    public String getEditorial() {
-        return editorial;
-    }
-
     public int getIdEditorial() {
         return idEditorial;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro{" + "idLibro=" + idLibro + ", titulo=" + titulo + ", fechaPublicacion=" + fechaPublicacion + ", idAutor=" + idAutor + ", idGenero=" + idGenero + ", idEditorial=" + idEditorial + '}';
     }
 
 }
