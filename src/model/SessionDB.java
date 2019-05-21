@@ -66,14 +66,14 @@ public class SessionDB {
     public int numOfTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         int count = 0;
-            connect();
-        try (Statement stmt = conn.createStatement()){
+        connect();
+        try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             count = rs.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            close();            
+        } finally {
+            close();
         }
         return count;
     }
@@ -82,15 +82,15 @@ public class SessionDB {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         ArrayList<String> tableNames = new ArrayList<>();
         connect();
-        try (Statement stmt = conn.createStatement()){
+        try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 tableNames.add(rs.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            close();            
+        } finally {
+            close();
         }
         return tableNames;
     }

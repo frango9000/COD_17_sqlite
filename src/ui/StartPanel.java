@@ -31,7 +31,7 @@ public class StartPanel extends javax.swing.JPanel {
         this.cards = MainFrame.getCards();
         layout = (CardLayout) cards.getLayout();
         initComponents();
-        
+
     }
 
     /**

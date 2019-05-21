@@ -183,7 +183,7 @@ public class AutoresPanel extends javax.swing.JPanel {
             JFrame j = new AutorFrame(id);
             j.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Elige un "+nombre+" a editar", nombre+"s", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Elige un " + nombre + " a editar", nombre + "s", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -196,7 +196,7 @@ public class AutoresPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable.getModel();
         model.setRowCount(0);
         biblioSQL.queryAutores().forEach((id, autor) -> {
-            Object[] row = {id, 
+            Object[] row = {id,
                 autor.getNombre(),
                 autor.getFormatedDate(),
                 biblioSQL.getPaises().get(autor.getIdPais())
@@ -221,16 +221,16 @@ public class AutoresPanel extends javax.swing.JPanel {
         if (jTable.getSelectedRow() > -1) {
             int idSelected = (int) jTable.getValueAt(jTable.getSelectedRow(), 0);
             String nameSelected = biblioSQL.getAutores().get(idSelected).getNombre();
-            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el "+nombre+": " + nameSelected, "Eliminando "+nombre+"", JOptionPane.YES_NO_OPTION);
+            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el " + nombre + ": " + nameSelected, "Eliminando " + nombre + "", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 if (biblioSQL.deleteAutor(idSelected) > 0) {
-                    JOptionPane.showMessageDialog(this, nombre+" eliminado: " + nameSelected, nombre+" Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, nombre + " eliminado: " + nameSelected, nombre + " Eliminado", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, nombre+" NO eliminado: " + nameSelected, nombre+" Eliminado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, nombre + " NO eliminado: " + nameSelected, nombre + " Eliminado", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Elige un "+nombre+" a eliminar", nombre, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Elige un " + nombre + " a eliminar", nombre, JOptionPane.ERROR_MESSAGE);
         }
         refreshTable();
     }//GEN-LAST:event_btnDeleteActionPerformed

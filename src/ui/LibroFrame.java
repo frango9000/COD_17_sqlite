@@ -316,7 +316,6 @@ public final class LibroFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jBtnCancelActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JLabel idLabel;

@@ -14,16 +14,19 @@ import src.model.BiblioSQL;
  * @author NarF
  */
 public final class PaisFrame extends javax.swing.JFrame {
-    String nombre ="";
-    BiblioSQL biblioSQL = BiblioSQL.getOpenInstance();;
+
+    String nombre = "";
+    BiblioSQL biblioSQL = BiblioSQL.getOpenInstance();
+
+    ;
     /**
      *
      * @param id
      */
     public PaisFrame(Integer id) {
-        nombre  = "Pais";
+        nombre = "Pais";
         initComponents();
-        
+
         setMinimumSize(new Dimension(350, 275));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -220,7 +223,6 @@ public final class PaisFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jBtnCancelActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel idLabel;
