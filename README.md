@@ -23,9 +23,9 @@
 
 ##Estructura SQL:  
 
-<img src="https://imgshare.io/images/2019/05/25/9.png" width="35%">  
-<img src="https://imgshare.io/images/2019/05/25/10.jpg" width="25%">  
-<img src="https://imgshare.io/images/2019/05/25/11.jpg" width="25%">  
+<img src="https://imgshare.io/images/2019/05/25/9.png" width="75%">  
+<img src="https://imgshare.io/images/2019/05/25/10.jpg" width="40%">  
+<img src="https://imgshare.io/images/2019/05/25/11.jpg" width="40%">  
 
 
 ##Librerias:  
