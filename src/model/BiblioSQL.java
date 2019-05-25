@@ -12,43 +12,58 @@ import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Clase con todos los comandos SQL utilizados por la biblioteca
+ *
+ * Javadocs detallados de query, insert, delete, update en la seccion de
+ * comandos de la tabla libros ya que esta es la mas completa
  *
  * @author NarF
  */
 public final class BiblioSQL {
 
-    private static BiblioSQL openInstance;
-
-    public static BiblioSQL getOpenInstance() {
-        return openInstance;
-    }
-
     private final SessionDB session;
 
+    /**
+     * Listas para almacenar el contenido de las tablas
+     */
     private TreeMap<Integer, String> paises;
     private TreeMap<Integer, String> generos;
     private TreeMap<Integer, String> editoriales;
     private TreeMap<Integer, Autor> autores;
     private TreeMap<Integer, Libro> libros;
 
+    /**
+     * Contructor, Recibe un Objeto SessionDB con el vinculo al archivo de la
+     * base de datos
+     *
+     * @param session SessionDB
+     */
     public BiblioSQL(SessionDB session) {
         this.session = session;
     }
 
+    /**
+     * Getter del parametro SessionDB session
+     *
+     * @return SessionDB session
+     */
     public SessionDB getSession() {
         return session;
     }
 
+    /**
+     * devuelve true si la estructura de la DB activa es valida (coincide con la
+     * inicializada)
+     *
+     * @return true si es valida
+     */
     public boolean isValid() {
         ArrayList<String> tables = session.listTables();
         StringBuilder tablesString = new StringBuilder();
@@ -59,10 +74,6 @@ public final class BiblioSQL {
                 + "generos\n"
                 + "libros\n";
         return model.matches(tablesString.toString());
-    }
-
-    public void setOpenInstance() {
-        BiblioSQL.openInstance = this;
     }
 
     public TreeMap<Integer, String> getGeneros() {
@@ -326,10 +337,22 @@ public final class BiblioSQL {
         return rows;
     }
 
+    /**
+     * Getter para el mapa que contiene los Objetos libros leidos desde la base
+     * de datos
+     *
+     * @return mapa libros
+     */
     public TreeMap<Integer, Libro> getLibros() {
         return libros;
     }
 
+    /**
+     * Lee la tabla libros y por cada registro crea un Objeto Clase Libro y lo
+     * agrega a el mapa 'libros' con su clave primaria (idLibro) como key
+     *
+     * @return el mapa de libros 'libros'
+     */
     public TreeMap<Integer, Libro> queryLibros() {
         libros = new TreeMap<>();
         String sql = "SELECT * FROM libros;";
@@ -350,6 +373,21 @@ public final class BiblioSQL {
         return libros;
     }
 
+    /**
+     * Agrega un nuevo libro a la Base de datos
+     *
+     * Recibimos todos los atributos del nuevo libro
+     *
+     * en el comando SQL INSERT, el id va NULL para que sqlite asigne una clave
+     * primaria nueva
+     *
+     * @param titulo
+     * @param fechaPub
+     * @param idAutor
+     * @param idGenero
+     * @param idEditorial
+     * @return int: numero de filas afectadas
+     */
     public int insertLibro(String titulo, String fechaPub, int idAutor, int idGenero, int idEditorial) {
         String sql = "INSERT INTO libros VALUES (NULL, '" + titulo + "', '" + fechaPub + "', '" + idAutor + "', '" + idGenero + "', '" + idEditorial + "');";
         session.connect();
@@ -364,6 +402,18 @@ public final class BiblioSQL {
         return rows;
     }
 
+    /**
+     * Metodo que edita un libro mediante el comando SQL UPDATE, recibiendo
+     * todos los atributos del libro
+     *
+     * @param idLibro
+     * @param titulo
+     * @param fechaPub
+     * @param idAutor
+     * @param idGenero
+     * @param idEditorial
+     * @return int: numero de filas afectadas
+     */
     public int updateLibro(int idLibro, String titulo, String fechaPub, int idAutor, int idGenero, int idEditorial) {
         String sql = "UPDATE libros SET titulo = '" + titulo + "', fechaPublicacion = '" + fechaPub + "', idAutor = '" + idAutor + "', idGenero = '" + idGenero + "', idEditorial = '" + idEditorial + "' WHERE idLibro = '" + idLibro + "';";
         session.connect();
@@ -378,6 +428,16 @@ public final class BiblioSQL {
         return rows;
     }
 
+    /**
+     * Metodo que recibe el id de un libro y ejecuta el comando DELETE en la DB
+     *
+     * Devuelve 1 si el comando elimina una fila, 0 si no hay modificacion
+     * realizada
+     *
+     *
+     * @param idLibro id del libro a borrar
+     * @return int: numero de filas afectadas
+     */
     public int deleteLibro(int idLibro) {
         String sql = "DELETE FROM libros WHERE idLibro = '" + idLibro + "';";
         session.connect();
@@ -392,6 +452,12 @@ public final class BiblioSQL {
         return rows;
     }
 
+    /**
+     * Metodo que crea las tablas y sus estructuras. Los comandos de creacion de
+     * tablas estan en el archivo src/src/model/Tablas.sql
+     *
+     * Este metodo lee el archivo, lo divide en comandos y los ejecuta.
+     */
     public void initializeBiblio() {
         File sql = new File("src/src/model/Tablas.sql");
         StringBuilder sqlcmd = new StringBuilder();
@@ -414,6 +480,13 @@ public final class BiblioSQL {
         }
     }
 
+    /**
+     * Metodo que inserta datos de demostracion en la DB
+     *
+     * Los insert estan en el archivo src/src/model/DemoData.sql
+     *
+     * Este metodo lee el archivo, lo divide en comandos y los ejecuta.
+     */
     public void insertDemoData() {
         File sql = new File("src/src/model/DemoData.sql");
         StringBuilder sqlcmd = new StringBuilder();
@@ -434,5 +507,21 @@ public final class BiblioSQL {
         } finally {
             session.close();
         }
+    }
+
+    /**
+     * Podemos utilizar esta clase como singleton para reducir su uso en
+     * constructores de la gui, aunque se solucionaria haciendola static,
+     * posiblemente se lleguen a conectar 2 bibliotecas distintas asi que
+     * reservo las modificaciones para entonces
+     */
+    private static BiblioSQL openInstance;
+
+    public static BiblioSQL getOpenInstance() {
+        return openInstance;
+    }
+
+    public void setOpenInstance() {
+        BiblioSQL.openInstance = this;
     }
 }

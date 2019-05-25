@@ -11,6 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Clase Session se encagra de mantener la informacion de una conexion a una DB
+ * especifica, Para multiples mases de datos crearemos multiples objetos
+ * SessionDB
+ *
  * @author fsancheztemprano
  */
 public class SessionDB {
@@ -19,29 +23,56 @@ public class SessionDB {
     private String dbUrl;
     private File db;
 
+    /**
+     * Constructor predefinido para BiblioDB
+     */
     public SessionDB() {
         dbUrl = "jdbc:sqlite:COD_17_sqlite/resources/biblio.db";
         db = new File(dbUrl.substring(dbUrl.lastIndexOf(":")));
     }
 
+    /**
+     * Constructor presonalizado
+     *
+     * @param url String ubicacion del archivo sqlite
+     */
     public SessionDB(String url) {
         this.dbUrl = "jdbc:sqlite:" + url;
         db = new File(url);
     }
 
+    /**
+     * Constructor presonalizado
+     *
+     * @param db File ubicacion del archivo sqlite
+     */
     public SessionDB(File db) {
         this.db = db;
         dbUrl = "jdbc:sqlite:" + db.getAbsolutePath();
     }
 
+    /**
+     * Getter para la clase Conexion
+     *
+     * @return Conexion
+     */
     public Connection getConn() {
         return conn;
     }
 
+    /**
+     * devuelve true si, el archivo con el que fue inicializado esta clase,
+     * existe
+     *
+     * @return
+     */
     public boolean exists() {
         return db.exists();
     }
 
+    /**
+     * establece la conexion a la DB
+     */
     public void connect() {
         conn = null;
         try {
@@ -52,6 +83,9 @@ public class SessionDB {
         }
     }
 
+    /**
+     * Finaliza una conexion a la DB
+     */
     public void close() {
         try {
             if (conn != null) {
@@ -63,6 +97,11 @@ public class SessionDB {
         }
     }
 
+    /**
+     * Devuelve el numero de tablas en una DB
+     *
+     * @return
+     */
     public int numOfTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         int count = 0;
@@ -78,6 +117,11 @@ public class SessionDB {
         return count;
     }
 
+    /**
+     * Devuelve Una lista con los nombres de las tablas en una DB
+     *
+     * @return
+     */
     public ArrayList<String> listTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         ArrayList<String> tableNames = new ArrayList<>();
@@ -95,6 +139,9 @@ public class SessionDB {
         return tableNames;
     }
 
+    /**
+     * println de la lista de tablas de una DB
+     */
     public void printTables() {
         ArrayList<String> tablenames = listTables();
         tablenames.forEach((name) -> System.out.println(name));
