@@ -468,10 +468,11 @@ public final class BiblioSQL {
             String multicmd = sqlcmd.toString();
             String[] cmds = multicmd.split(";");
             session.connect();
-            for (String cmd : cmds) {
-                try (Statement stmt = session.getConn().createStatement()) {
-                    stmt.executeUpdate(cmd + ";");
+            try (Statement stmt = session.getConn().createStatement()) {
+                for (String cmd : cmds) {
+                    stmt.addBatch(cmd + ";");
                 }
+                stmt.executeBatch();
             }
         } catch (FileNotFoundException | SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -497,10 +498,11 @@ public final class BiblioSQL {
             String multicmd = sqlcmd.toString();
             String[] cmds = multicmd.split(";");
             session.connect();
-            for (String cmd : cmds) {
-                try (Statement stmt = session.getConn().createStatement()) {
-                    stmt.executeUpdate(cmd + ";");
+            try (Statement stmt = session.getConn().createStatement()) {
+                for (String cmd : cmds) {
+                    stmt.addBatch(cmd + ";");
                 }
+                stmt.executeBatch();
             }
         } catch (FileNotFoundException | SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
