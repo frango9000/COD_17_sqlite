@@ -198,6 +198,7 @@ public final class EditorialFrame extends javax.swing.JFrame {
         if (jTextFieldID.getText().length() == 0) {
             if (jTextFieldName.getText().trim().length() > 0) {
                 if (biblioSQL.insertEditorial(jTextFieldName.getText().trim()) > 0) {
+                    EditorialesPanel.refreshTable();
                     JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -208,6 +209,7 @@ public final class EditorialFrame extends javax.swing.JFrame {
         } else {
             if (jTextFieldName.getText().trim().length() > 0) {
                 if (biblioSQL.updateEditorial(Integer.parseInt(jTextFieldID.getText()), jTextFieldName.getText().trim()) > 0) {
+                    EditorialesPanel.refreshTable();
                     JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);

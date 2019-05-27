@@ -290,6 +290,7 @@ public final class LibroFrame extends javax.swing.JFrame {
         if (jTextFieldID.getText().length() == 0) {
             if (jTextFieldName.getText().trim().length() > 0) {
                 if (biblioSQL.insertLibro(jTextFieldName.getText().trim(), Libro.getDbDate(datePicker1.getText()), nuevoAutor, nuevoGenero, nuevaEditorial) > 0) {
+                    LibrosPanel.refreshTable();
                     JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -301,6 +302,7 @@ public final class LibroFrame extends javax.swing.JFrame {
             if (jTextFieldName.getText().trim().length() > 0) {
                 if (biblioSQL.updateLibro(Integer.parseInt(jTextFieldID.getText()), jTextFieldName.getText().trim(), Libro.getDbDate(datePicker1.getText()), nuevoAutor, nuevoGenero, nuevaEditorial) > 0) {
                     JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                    LibrosPanel.refreshTable();
                 } else {
                     JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 }

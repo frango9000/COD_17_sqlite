@@ -191,8 +191,9 @@ public class AutoresPanel extends javax.swing.JPanel {
         refreshTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
-    private void refreshTable() {
+    public static void refreshTable() {
         // TODO add your handling code here:
+        BiblioSQL biblioSQL = BiblioSQL.getOpenInstance();
         DefaultTableModel model = (DefaultTableModel) jTable.getModel();
         model.setRowCount(0);
         biblioSQL.queryAutores().forEach((id, autor) -> {
@@ -243,7 +244,7 @@ public class AutoresPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnVolver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable;
+    private static javax.swing.JTable jTable;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

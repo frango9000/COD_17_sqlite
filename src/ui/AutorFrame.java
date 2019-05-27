@@ -7,7 +7,6 @@ package src.ui;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.awt.Dimension;
-import java.time.format.DateTimeFormatter;
 import java.util.Map.Entry;
 import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
@@ -248,6 +247,7 @@ public final class AutorFrame extends javax.swing.JFrame {
             if (jTextFieldName.getText().trim().length() > 0) {
                 int rows = biblioSQL.insertAutor(jTextFieldName.getText().trim(), Autor.getDbDate(datePicker1.getText()), nuevoPais);
                 if (rows > 0) {
+                    AutoresPanel.refreshTable();
                     JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -259,6 +259,7 @@ public final class AutorFrame extends javax.swing.JFrame {
             if (jTextFieldName.getText().trim().length() > 0) {
                 int rows = biblioSQL.updateAutor(Integer.parseInt(jTextFieldID.getText()), jTextFieldName.getText().trim(), Autor.getDbDate(datePicker1.getText()), nuevoPais);
                 if (rows > 0) {
+                    AutoresPanel.refreshTable();
                     JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
