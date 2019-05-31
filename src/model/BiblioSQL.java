@@ -377,6 +377,8 @@ public final class BiblioSQL {
      * Agrega un nuevo libro a la Base de datos
      *
      * Recibimos todos los atributos del nuevo libro
+     * 
+     * 3 - Método insertar, recibe parámetros y devuelve el número de registros que insertó.
      *
      * en el comando SQL INSERT, el id va NULL para que sqlite asigne una clave
      * primaria nueva
