@@ -72,18 +72,22 @@ public class SessionDB {
 
     /**
      * establece la conexion a la DB
+     * 
+     * 2 - Método conexión, devuelve 'true' si conectó correctamente o 'false' en otro caso
+     * 
      * @return true si la conexion fue establecida correctamente
      */
     public boolean connect() {
+        boolean success = false;
         conn = null;
         try {
             conn = DriverManager.getConnection(dbUrl);
             System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
-            return true;
+            success = true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return false;
         }
+        return success;
     }
 
     /**
