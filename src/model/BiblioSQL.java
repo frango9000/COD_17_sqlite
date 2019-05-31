@@ -460,7 +460,8 @@ public final class BiblioSQL {
      *
      * Este metodo lee el archivo, lo divide en comandos y los ejecuta.
      */
-    public void initializeBiblio() {
+    public boolean initializeBiblio() {
+        boolean success = false;
         File sql = new File("src/src/model/Tablas.sql");
         StringBuilder sqlcmd = new StringBuilder();
         try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))) {
@@ -475,12 +476,14 @@ public final class BiblioSQL {
                     stmt.addBatch(cmd + ";");
                 }
                 stmt.executeBatch();
+                success = true;
             }
         } catch (FileNotFoundException | SQLException ex) {
             Logger.getLogger(BiblioSQL.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             session.close();
         }
+        return success;
     }
 
     /**
