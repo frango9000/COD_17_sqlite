@@ -407,6 +407,8 @@ public final class BiblioSQL {
     /**
      * Metodo que edita un libro mediante el comando SQL UPDATE, recibiendo
      * todos los atributos del libro
+     * 
+     * 4 - Método borrar, recibe parámetros y devuelve número de registros borradas
      *
      * @param idLibro
      * @param titulo
