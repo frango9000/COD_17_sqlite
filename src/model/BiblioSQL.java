@@ -350,7 +350,7 @@ public final class BiblioSQL {
     /**
      * Lee la tabla libros y por cada registro crea un Objeto Clase Libro y lo
      * agrega a el mapa 'libros' con su clave primaria (idLibro) como key
-     *
+     * 
      * @return el mapa de libros 'libros'
      */
     public TreeMap<Integer, Libro> queryLibros() {
@@ -455,6 +455,8 @@ public final class BiblioSQL {
     /**
      * Metodo que crea las tablas y sus estructuras. Los comandos de creacion de
      * tablas estan en el archivo src/src/model/Tablas.sql
+     * 
+     * 1 - Método crear tabla
      *
      * Este metodo lee el archivo, lo divide en comandos y los ejecuta.
      */
